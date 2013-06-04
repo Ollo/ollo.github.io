@@ -1,0 +1,36 @@
+// base styles 
+
+body {
+
+}
+
+a {
+	&:hover {
+
+	}
+}
+
+
+// typography 
+
+@mixin jura_reg {
+	font-family: 'juraregular';
+}
+@mixin jura_bold {
+	font-family: 'jurabold';
+}
+@mixin jura_ital {
+	font-family: 'juraitalic';
+}
+
+
+// layout 
+
+.wrap {
+	@include outer_container;
+}
+
+.intro {
+	@include outer_container;
+}
+
