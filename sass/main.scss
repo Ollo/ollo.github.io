@@ -1,7 +1,9 @@
 // main styles 
 @import "compass";
+@import "partials/normalize";
 @import "bourbon/bourbon";
 @import "neat/neat";
 @import "partials/grid";
 @import "partials/type";
+
 @import "partials/app";

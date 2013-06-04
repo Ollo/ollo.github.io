@@ -1,15 +1,35 @@
+// colors 
+$white : #FAFAFA;
+$gray : #acacac;
+$egg : #FBEEC2;
+$tan : #C1B398;
+$chocolate : #605951;
+$aqua : #61A6AB;
+$mint : #ACCEC0;
+$black : #3f3f3f;
+
 // base styles 
 
-body {
+html { background: transparent;}
 
+body {
+	background: url("../img/squares.png") repeat #fff;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   	font-weight: 300;
+   	font-size: 16px;
+   	line-height: 24px;
+   	color: $black;
 }
 
 a {
+	color: $aqua;
+	text-decoration: none;
+	@include transition(color .5s ease-in );
+	
 	&:hover {
-
+		color: $mint;
 	}
 }
-
 
 // typography 
 
@@ -23,14 +43,114 @@ a {
 	font-family: 'juraitalic';
 }
 
+h1,
+h2,
+h3, 
+h4 { 
+	@include jura_reg;
+}
+h1 {
+	font-size: 2em;
+	line-height: 1.5em;
+}
+
+h3 {
+	color: $chocolate;
+	font-size: 1.25em;
+}
+
+
+hr {
+	display: block;
+	height: 1px;
+	width: 100%;
+	margin: 0.5em 0;
+	padding: 0;
+	border-top: 1px dotted $tan;
+}
+
+ul {
+	list-style: circle;
+}
 
 // layout 
 
 .wrap {
 	@include outer_container;
+	background: $white;
+	margin-top: 40px;
+	padding: 0 1em;
+	@include border-radius(7px);
+}
+
+section {
+	
 }
 
 .intro {
-	@include outer_container;
+	@include span-columns(12);
+	@include clearfix;
+	margin-bottom: 2em;
+
+	h1 {
+		@include jura_bold; 
+		color: $chocolate;
+		float: left;
+		font-size: 3em;
+		margin: 0;
+		
+		.tagline {
+			font-size: 0.5em;
+			@include jura_ital;
+			color: $aqua;
+		}
+	}
+	
+	.contact { 
+		float: right;
+		a { padding: 0 0.5em; }
+	}
+
+	@include media($tablet) {
+		h1 {
+			line-height: 1.25;
+		}
+
+		.tagline {
+			display: block; 
+				float: left;
+		}
+		.contact {
+			display: block;
+			float: left;
+			margin: 0.25em 0;
+		}
+	}
 }
 
+.mission {
+	@include span-columns(12);
+}
+.experience {
+	.position {
+		margin: 1em 0;
+		h4 { 
+			@include jura_bold;
+			color: $aqua;
+			margin: 0.5em 0 0;
+		}
+		.title {
+			@include jura_ital;
+			margin: 0;
+			color: $tan;
+
+			span { color: $chocolate; }
+		}
+		p { margin: 0.5em 0; }
+	}
+}
+
+
+footer {
+	p { float: right;}
+}
