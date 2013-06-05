@@ -105,9 +105,16 @@ section {
 			color: $aqua;
 		}
 	}
-	
+	.phone { 
+		float: left; 
+		width: 100%; 
+		margin: 0 0 1em; 
+		color: $tan;
+		a { color: $tan; }
+	}
 	.contact { 
 		float: right;
+		margin: 1em 0 0; 
 		a { padding: 0 0.5em; }
 	}
 
