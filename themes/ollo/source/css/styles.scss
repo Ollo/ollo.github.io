@@ -1,0 +1,57 @@
+@import "_partials/normalize";
+@import "_partials/responsive";
+@import "_partials/colors";
+@import "_partials/base";
+@import "_partials/code";
+
+
+.wrapper {
+  width: 100%;
+
+  @include tablet {
+    max-width: 100rem;
+    margin: 0 auto;
+  }
+}
+
+.intro {
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed $gray;
+
+  h1 {
+    font-size: 3rem;
+    line-height: 3rem;
+    text-transform: uppercase;
+    flex-order: 1;
+  }
+
+  .social {
+    flex-order: 2;
+
+    a {
+      border-bottom: transparent;
+
+      &:hover {
+        border-bottom: transparent;
+      }
+
+      @include tablet {
+        margin: 0 1rem;
+      }
+    }
+  }
+}
+
+.post {
+  padding: 4rem;
+  background: $white;
+  border-bottom: 1px dashed $gray;
+}
+
+.pagination {
+  margin: 2rem 0;
+  display: flex;
+}

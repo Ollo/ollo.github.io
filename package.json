@@ -1,0 +1,38 @@
+{
+  "name": "ollomedia",
+  "version": "0.0.0",
+  "private": true,
+  "hexo": {
+    "version": "3.1.1"
+  },
+  "dependencies": {
+    "hexo": "^3.1.0",
+    "hexo-deployer-git": "0.0.4",
+    "hexo-generator-archive": "^0.1.2",
+    "hexo-generator-category": "^0.1.2",
+    "hexo-generator-index": "^0.1.2",
+    "hexo-generator-tag": "^0.1.1",
+    "hexo-migrator-wordpress": "^0.1.2",
+    "hexo-renderer-marked": "^0.2.4",
+    "hexo-server": "^0.1.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "node-sass": "^3.4.2"
+  },
+  "description": "Personal site / blog built with Hexo",
+  "main": "/themes/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Ollo/ollo.github.com.git"
+  },
+  "author": "Joshua Ray",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ollo/ollo.github.com/issues"
+  },
+  "homepage": "https://github.com/Ollo/ollo.github.com"
+}
