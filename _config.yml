@@ -70,4 +70,3 @@ theme: ollo
 deploy:
   type: git
   repo: git@github.com:Ollo/ollo.github.com.git
-  branch: gh-pages
