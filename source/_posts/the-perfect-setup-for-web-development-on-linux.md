@@ -3,13 +3,8 @@ tags:
   - linux
   - open source
   - web development
-id: 502
-categories:
-  - Uncategorized
 date: 2010-08-26 19:55:36
 ---
-
-[![](/wp-content/uploads/linux_icon.gif "linux_icon")](/wp-content/uploads/linux_icon.gif)
 
 As a fellow open source enthusiast and web developer, [Josh](http://ollomedia.com/author/administrator/) has been kind enough to invite me to guest post on one of my favorite topics: Linux-based web development. I specialize in the development end and less on design, so bear that in mind, though I'll also introduce some graphic design tools as well. While the linux platform still lacks a native port for Adobe CreativeSuite, to the chagrine of Linux-loving web developers everywhere,  there are still plenty of stunningly useful tools for web developers working on Linux. Before  I get to a summary of my favorite of these tools though, I'd like to take a second to talk about the importance of open source in the web industry.
 
@@ -47,7 +42,7 @@ Every developer's idea of a useful coding environment differ based on purpose, e
 
 A long time favorite, Kompozer is a simple-to-use web editor that offers a fully graphical development environment with great support for css based templates, great built in code libraries and fully standards compliant code generation. With easy switching between graphical and source-view, this web development software is an understandable favorite for many beginning web developers and a trusted familiar for experienced developers.
 
-**Key features:** _gui and source editing, built in code support and easy css template generation, built-in ftp client._
+**Key features:** _gui and source editing, built in code support and easy css template generation, built-in ftp client.
 
 #### [Bluefish](http://bluefish.openoffice.nl/)
 
@@ -85,7 +80,7 @@ Every developer knows that sometimes, despite your most thorough review, bugs ca
 
 To that end, Linux easily outshines other development platforms, especially in the popular combination of tools known as a LAMP server. If you're not already familiar with the term, LAMP stands for Linux, Apache, MySQL, PHP, who, when the power of their rings unites, provides a powerful, stable, and flexible platform for almost all web-development needs, including a highly stable, configurable OS with low overhead, to get the best performance out of the available hardware, a powerful, secure and extensible web server, MySQL for database needs, and PHP for dynamic scripting, file uploads/downloads, and database interaction.
 
-The tremendous news to Linux using web developers, is that you're already using the base of this killer combination. Every major distribution provides a simple-to-install binary package for Apache, MySQL and PHP which will typically be configured to run right out of the box. Many distributions even provide a metapackage to install the LAMP package as a whole without seeking out the individual binaries. While the availability of Apache for easy installation is terrific, if you happen to develop on older hardware, a netbook, or would just rather not add another service to your desktop, the [XAMPP](http://www.apachefriends.org/en/xampp.html) project is a terrific solution for pre-configured, fully featured testing environment for web developers which includes Apache, MySQL, PHP and Perl as well as  several demo projects to demonstrate various functionalities, and phpMyAdmin for a friendly database interface if you're not comfortable at the command line.<!--more-->
+The tremendous news to Linux using web developers, is that you're already using the base of this killer combination. Every major distribution provides a simple-to-install binary package for Apache, MySQL and PHP which will typically be configured to run right out of the box. Many distributions even provide a metapackage to install the LAMP package as a whole without seeking out the individual binaries. While the availability of Apache for easy installation is terrific, if you happen to develop on older hardware, a netbook, or would just rather not add another service to your desktop, the [XAMPP](http://www.apachefriends.org/en/xampp.html) project is a terrific solution for pre-configured, fully featured testing environment for web developers which includes Apache, MySQL, PHP and Perl as well as  several demo projects to demonstrate various functionalities, and phpMyAdmin for a friendly database interface if you're not comfortable at the command line.
 
 ### Conclusion
 

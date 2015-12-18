@@ -29,8 +29,6 @@ I use a compiler which took some time to getting used to as a front end guy who'
 
 Recently at WordCamp here in St. Louis I discussed theme development best practices and one of the concepts I covered was abstraction. The concept holds true in the method I use to work with bootstrap which I find to work really well. I start with a basic project folder for the site name or project I'm working on and create the basic folder structure for the types of files I will be using. I also add a folder called bootstrap to contain the frameworks less files.
 
-![File Structure](/wp-content/uploads/Screen-Shot-2012-10-15-at-11.10.18-PM.png)
-
 Now I copy over the files from bootstrap that I downloaded from Github into the appropriate directories minus the tests folders that were used in development. Now I have a clean folder structure with some basic assets to start using on my project.
 
 ### Getting started
@@ -59,8 +57,6 @@ Once these files are created open your `style.less` file and add the following l
 
 Once you have created these files and this structure you can open your compiler of choice and add your new project. In CodeKit you simply click the (+) plus sign and browse for your site folder. Once you have chosen this lets modify the compiler behavior.
 
-![CodeKit](/wp-content/uploads/Screen-Shot-2012-10-15-at-11.36.08-PM-1024x741.png)
-
 Basically we want to make sure it is detecting the import statements and that it is only compiling the single style.less file. Also if it doesn't automatically set the output path for the compiled css you will want to right click and tell it to use /css/style.css. Now we can get started on building our new site with less and the power of bootstrap so if your not already confused read on.
 
 ### File Strategy
@@ -80,11 +76,5 @@ Yes. If you open the bootstrap.less file from the framework you'll see they are 
 ### Closing
 
 This has taken a couple of months for me to refine and get comfortable with but now I'm finally starting to see the benefits as I work with a team of developers on larger projects. This organization lets us minimize development time and makes our code easier to understand without lots of instruction and I hope it helps you on your development projects in the future. If you see improvements that can be made I'd love to hear your feedback or findings while you experiment.
-
-### Download
-
-Here are the files I created for this walkthrough for you to explore
-
-[sample project](wp-content/uploads/sample.zip)
 
 Happy coding.

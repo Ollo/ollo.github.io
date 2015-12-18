@@ -2,13 +2,8 @@ title: WordPress development tools
 tags:
   - web development
   - WordPress
-id: 1248
-categories:
-  - Uncategorized
 date: 2012-09-26 04:38:50
 ---
-
-![wordpress](/wp-content/uploads/wordpress.jpg)
 
 So I just launched my new WordPress theme. This was more playing catch up than a marketing tactic. I have been working with WordPress for almost five years now but have been so busy with client work and freelance projects that I had left my site to rot.
 

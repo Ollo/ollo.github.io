@@ -3,9 +3,6 @@ tags:
   - business
   - content optimization
   - ecommerce
-id: 612
-categories:
-  - Uncategorized
 date: 2010-11-02 16:17:01
 ---
 
@@ -22,14 +19,14 @@ The key to page level SEO is consistency in your content. Analytics seems to sca
 "**_SEO is never done_**"... Sorry but it is the truth. In order to maintain a strong profitable ranking your content constantly needs to be evaluated and adjusted. Analytics is a tool to find the answers.
 
 > What are my customers looking for?
-> 
+>
 > What keywords are bringing in visitors that buy { convert } ?
-> 
+>
 > What content on my pages is counter-productive ?
 
 Consistency is imperative. If you know the top keywords for a particular page after studying analytic reports and your competition, yes you should be looking at what they are doing, then lets move into how to put that information into practice.
 
-#### 1\. Page Title / Title Tag  `&lt;title&gt;`
+#### 1\. Page Title / Title Tag  `<title>`
 
 This is the first element on a page that is evaluated and indexed by the search engine. Adding the name of the product is common and a good start for your keyword strategy. Also consider adding an additional keyword or phrase that is relevant and would be used in a product search to locate the product.  Think of adjectives that describe the product or the brand if it is well known. Analytics is a great place to locate keywords or search terms used in the past to draw in traffic.  I would test adding the keywords that have led to conversion.
 
@@ -39,17 +36,17 @@ Starting with domain selection we begin to establish relevance. If your domain w
 
 For example :
 
-    http://domain.com/123456.html 
+    http://domain.com/123456.html
 
-        vs. 
+        vs.
 
     http://domain.com/product-name-keyword-keyword.html
 
 The second structure points out the terms for the product and 2 additional keywords that should be relevant and used throughout the other page elements. This directly identifies what type of content is on this page and can impact its ranking.
 
-#### 3.) The first heading tag `&lt;h1&gt;`
+#### 3.) The first heading tag `<h1>`
 
-In html `&lt;h1&gt;` is used to indicate the most important heading for the page. This is a perfect opportunity to re-use some of the most relevant keywords for your page and emphasize the same terms pointed out in your page title. You don't want to go overboard so try and keep this fairly simple but try and associate at least one more keyword than just the item name.
+In html `<h1>` is used to indicate the most important heading for the page. This is a perfect opportunity to re-use some of the most relevant keywords for your page and emphasize the same terms pointed out in your page title. You don't want to go overboard so try and keep this fairly simple but try and associate at least one more keyword than just the item name.
 
 #### 4.) Your Primary Content
 

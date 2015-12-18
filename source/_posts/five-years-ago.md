@@ -1,9 +1,6 @@
 title: Five years ago
 tags:
   - me
-id: 1391
-categories:
-  - Uncategorized
 date: 2013-09-14 18:21:04
 ---
 
@@ -11,7 +8,7 @@ So yesterday was my 32nd birthday. Woot! This morning over coffee while slowly w
 
 Five years ago I was writing css from scratch in a primarily Windows environment. And doing web hosting support for Yahoo!. It was an interesting way to cut my teeth and a lot of it was mind numbingly boring but I did get to learn some of the core concepts of web development from supporting their key services. I learned how to debug front end and backend code and the basics of a LAMP environment. I learned to use tools like firebug and photoshop. I took classes at the community college and online on javascript, php, and mark up languages. To think how my own development tools and skills as well as those in the industry have changed so rapidly in this timespan is just mind boggling.
 
-Now I haven't used a Windows computer as my primary machine in 4 years. I finally am gaining a real understanding of the value of semantic minimal markup and working with the DOM properly. I'm writing true classes and object oriented stylesheets with sass [http://bourbon.io](http://bourbon.io) [http://neat.bourbon.io](http://neat.bourbon.io). I've grown from supporting WordPress 1.6 to building custom themes from scratch and writing plugins. I've taken a deep dive into javascript and am trying to master it. I've automated and sped up my workflow by using better tools { [http://www.sublimetext.com/](http://www.sublimetext.com/) , [http://www.iterm2.com/#/section/home](http://www.iterm2.com/#/section/home), node applications [http://yeoman.io/](http://yeoman.io/) ,[http://gruntjs.com/](http://gruntjs.com/), version control [http://git-scm.org](http://git-scm.org), and shell customizations .
+Now I haven't used a Windows computer as my primary machine in 4 years. I finally am gaining a real understanding of the value of semantic minimal markup and working with the DOM properly. I'm writing true classes and object oriented stylesheets with sass [Bourbon](http://bourbon.io) [Bourbon Neat](http://neat.bourbon.io). I've grown from supporting WordPress 1.6 to building custom themes from scratch and writing plugins. I've taken a deep dive into javascript and am trying to master it. I've automated and sped up my workflow by using better tools { [sublime text](http://www.sublimetext.com/) , [iterm](http://www.iterm2.com/#/section/home), node applications [yeoman](http://yeoman.io/) ,[grunt](http://gruntjs.com/), version control [git](http://git-scm.org), and shell customizations .
 
 It's a fast moving environment and new technologies are coming out daily. Sometimes I worry about the direction some of them are going and the impact it may have on society and our culture. Not that I don't respect the innovation of these technologies, but the levels of integration seem to be moving in a directions that are a bit too far for me { glass }.
 

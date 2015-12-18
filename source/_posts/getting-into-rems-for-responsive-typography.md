@@ -3,9 +3,6 @@ tags:
   - css
   - sass
   - web development
-id: 1399
-categories:
-  - Uncategorized
 date: 2014-01-10 15:51:22
 ---
 

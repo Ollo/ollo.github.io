@@ -2,15 +2,10 @@ title: Speaking at WordCamp
 tags:
   - web development
   - WordPress
-id: 1237
-categories:
-  - Uncategorized
 date: 2012-09-17 03:41:04
 ---
 
-![wcstl-ver_speaking](/wp-content/uploads/wcstl-ver_speaking.png)
-
-So thanks to my awesome boss Ed @ [Integrity](http://integritystl.com "St. Louis web development firm") I was recommended, and will be giving a chat with my rad comrade Arod this year at WordCamp in St. Louis.
+So thanks to my awesome boss Ed @ [Integrity](http://integritystl.com) I was recommended, and will be giving a chat with my rad comrade Arod this year at WordCamp in St. Louis.
 
 We're planning a chat for developers that focuses on how to architect a really awesome WordPress theme. Our focus is on how using custom post types, custom meta boxes, and admin customizations can make WordPress a true CMS and easy for clients to learn.
 
@@ -24,6 +19,4 @@ Check back for a follow up post on the details of the event and links to the sli
 
 Arod and I had a great session that was standing room only! We totally enjoyed the experience and had some really encouraging feedback.
 
-Here are the slides from the presentation for all those interested
-
-<script async class="speakerdeck-embed" data-id="505dd39883dd870002023769" data-ratio="1.2945638432364097" src="//speakerdeck.com/assets/embed.js"></script>
+Here are the [slides](https://speakerdeck.com/ollo/wcstl12) from the presentation for all those interested

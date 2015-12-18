@@ -1,9 +1,8 @@
 title: WordCamp St Louis
-id: 1672
-categories:
-  - Uncategorized
 date: 2014-02-25 15:14:46
 tags:
+  - WordPress
+  - me
 ---
 
 [![I](http://2014.stlouis.wordcamp.org/files/2014/02/horizbadges_SPEAKING.jpg)](http://2014.stlouis.wordcamp.org "I")
@@ -16,6 +15,6 @@ I attempted to give up my spot as a speaker so I could focus on organizing but e
 
 So WordCamp St. Louis in my humble first time organizer opinion was a huge success and our local community really did a fantastic job. The speakers were awesome, the sponsors were super generous with swag and support, and despite the weather closing the day down a bit early I think everyone had a pretty good time, learned a lot and enjoyed themselves.
 
-I thought my rushed chat came out pretty well even though I rushed a bit and forgot a few things because I was nervous. This year I decided to keep the slides lighter and styled but use more interactive sections to demo the tools and I really enjoyed the flow much better than previous chats I've done. **Pro tip:** Definitely throw in gifs and funny pictures.
+I thought my rushed chat came out pretty well even though I rushed a bit and forgot a few things because I was nervous. This year I decided to keep the [slides](https://speakerdeck.com/ollo/wordcamp-st-louis-2014) lighter and styled but use more interactive sections to demo the tools and I really enjoyed the flow much better than previous chats I've done.
 
-<script async class="speakerdeck-embed" data-id="29e7f9e0893d0131712a6e502952b505" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
+**Pro tip:** Definitely throw in gifs and funny pictures.

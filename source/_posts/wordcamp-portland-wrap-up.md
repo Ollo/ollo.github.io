@@ -1,15 +1,11 @@
 title: Wordcamp Portland Wrap Up
 tags:
-  - reviews
-  - web development
+  - me
   - WordPress
-id: 938
-categories:
-  - Uncategorized
 date: 2011-09-20 06:18:06
 ---
 
-![wp-grey](/wp-content/uploads/wp-grey.png)So this year was my second year to attend [WordCamp](http://central.wordcamp.org/) in Portland. It's a great time to meet other developers listen to entertaining as well as educational chats from pro's as well as fellow enthusiasts. As I pursue more and more development in WordPress these camps are essential to my growth and inspiration as I always learn something new, or how to do something more optimally. Here is a quick re-cap and some resources from the sessions I was able to attend that I hope inspire you to[ find a WordCamp in your area to attend. ](http://central.wordcamp.org/)
+So this year was my second year to attend [WordCamp](http://central.wordcamp.org/) in Portland. It's a great time to meet other developers listen to entertaining as well as educational chats from pro's as well as fellow enthusiasts. As I pursue more and more development in WordPress these camps are essential to my growth and inspiration as I always learn something new, or how to do something more optimally. Here is a quick re-cap and some resources from the sessions I was able to attend that I hope inspire you to[ find a WordCamp in your area to attend. ](http://central.wordcamp.org/)
 
 The first change with this years conference compared to last years was it was primarily an [unconference](http://en.wikipedia.org/wiki/Unconference) in format. If your new to this term it is essentially participant driven so other that a few planned main speakers all of the other chats were volunteered or suggested through those attending. At first I was quite apprehensive about this format as last year was very session driven and I had a clear outline of topics I could decide on sitting in on. This new format however panned out to be great due to the fantastic community of WordPressers in the local area which for me made it just as great as last year.
 
