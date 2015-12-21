@@ -51,7 +51,58 @@
   border-bottom: 1px dashed $gray;
 }
 
-.pagination {
-  margin: 2rem 0;
-  display: flex;
+.post_tags {
+
 }
+
+.tag {
+  padding: 0.5rem 0.75rem;
+  margin-right: 1rem;
+}
+
+.pagination {
+  @extend %clearfix;
+  margin: 2rem 0;
+}
+
+.pagination_next {
+  float: right;
+  text-align: right;
+}
+
+.pagination_prev {
+  float: left;
+  text-align: left;
+}
+
+$seafoam: #83B69B;
+$sherbert: #FAC581;
+$fuscia: #B84369;
+$splitpea: #C5C380;
+$moss: #5C5A30;
+
+$tag_colors: (
+  '0': $seafoam,
+  '1': $sherbert,
+  '2': $fuscia,
+  '3': $splitpea,
+  '4': $moss,
+  '5': $gray
+);
+
+@function get-color($color_code: r) {
+  @return map-get($tag_colors, $color_code);
+}
+
+@each $background, $color_code in $tag_colors {
+  .tag-#{$background} {
+    border: 2px solid get-color($background);
+
+    &:hover {
+      background: lighten($alabaster, 2%);
+      border: 2px solid get-color($background);
+      color: get-color($background);
+    }
+  }
+}
+
