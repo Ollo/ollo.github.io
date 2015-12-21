@@ -70,3 +70,4 @@ theme: ollo
 deploy:
   type: git
   repo: git@github.com:Ollo/ollo.github.io.git
+  branch: master
