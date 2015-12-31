@@ -5,7 +5,7 @@
 @import "_partials/code";
 
 
-.intro {
+.masthead {
   padding: 0 2rem;
   display: flex;
   justify-content: flex-start;
@@ -52,10 +52,6 @@
   border-bottom: 1px dashed $gray;
 }
 
-.post_tags {
-
-}
-
 .tag {
   padding: 0.5rem 0.75rem;
   margin-right: 1rem;
@@ -76,20 +72,25 @@
   text-align: left;
 }
 
+.author {
+  background: $alabaster;
+}
+
 .bio {
   @extend %clearfix;
-  // padding: 5rem 0;
+  box-sizing: border-box;
+  padding: 2rem;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .bio_avatar {
-  border: 1rem solid darken($alabaster, 10%);
-  float: left;
-  margin-right: 2rem;
   width: 20rem;
   height: 20rem;
+  // margin-right: 4rem;
 }
 
 .bio_content {
-  float: right;
-  padding: 4rem 0;
+  padding: 0 2rem;
 }

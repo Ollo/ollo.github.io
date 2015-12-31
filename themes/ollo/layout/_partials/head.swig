@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title> Ollomedia | Tales from the Front End by Joshua Ray</title>
+    <title> {{ config.title }} | {% if page.title %} {{ page.title }} {% else %} {{ config.subtitle }} {% endif %} </title>
     <meta name="description" content="{{ config.description }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
