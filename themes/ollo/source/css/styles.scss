@@ -5,31 +5,32 @@
 @import "_partials/code";
 
 
-.wrapper {
-  width: 100%;
-
-  @include tablet {
-    max-width: 100rem;
-    margin: 0 auto;
-  }
-}
-
 .intro {
   padding: 0 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   border-bottom: 1px dashed $gray;
 
-  h1 {
+  .title {
     font-size: 3rem;
     line-height: 3rem;
     text-transform: uppercase;
     flex-order: 1;
+    flex-grow: 1;
   }
 
+  .about {
+    display: block;
+    order: 2;
+    flex-grow: 1;
+  }
+
+
   .social {
-    flex-order: 2;
+    order: 3;
+    flex-grow: 3;
+    text-align: right;
 
     a {
       border-bottom: transparent;
@@ -75,34 +76,20 @@
   text-align: left;
 }
 
-$seafoam: #83B69B;
-$sherbert: #FAC581;
-$fuscia: #B84369;
-$splitpea: #C5C380;
-$moss: #5C5A30;
-
-$tag_colors: (
-  '0': $seafoam,
-  '1': $sherbert,
-  '2': $fuscia,
-  '3': $splitpea,
-  '4': $moss,
-  '5': $gray
-);
-
-@function get-color($color_code: r) {
-  @return map-get($tag_colors, $color_code);
+.bio {
+  @extend %clearfix;
+  // padding: 5rem 0;
 }
 
-@each $background, $color_code in $tag_colors {
-  .tag-#{$background} {
-    border: 2px solid get-color($background);
-
-    &:hover {
-      background: lighten($alabaster, 2%);
-      border: 2px solid get-color($background);
-      color: get-color($background);
-    }
-  }
+.bio_avatar {
+  border: 1rem solid darken($alabaster, 10%);
+  float: left;
+  margin-right: 2rem;
+  width: 20rem;
+  height: 20rem;
 }
 
+.bio_content {
+  float: right;
+  padding: 4rem 0;
+}

@@ -109,3 +109,12 @@ ul, ol {
     clear: both;
   }
 }
+
+.wrapper {
+  width: 100%;
+
+  @include tablet {
+    max-width: 100rem;
+    margin: 0 auto;
+  }
+}

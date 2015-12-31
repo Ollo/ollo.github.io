@@ -3,7 +3,7 @@
 <body>
   <section>
     <header class="intro">
-      <h1><a href="{{ config.root }}">{{ config.title }}</a></h1>
+      <h1 class="title"><a href="{{ config.root }}">{{ config.title }}</a></h1>
       <div class="social">
         <a href="https://twitter.com/ollomedia" target="_blank">{ twitter }</a>
         <a href="https://github.com/Ollo" target="_blank">{ github }</a>

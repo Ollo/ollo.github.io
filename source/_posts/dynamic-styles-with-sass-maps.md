@@ -1,10 +1,13 @@
 title: dynamic styles with sass maps
 tags:
   - sass
+  - css
 date: 2015-12-16 10:10:37
 ---
 
-So recently I was working on a series of content cards and each of them needed a unique color. Instead of writing simple classes I wanted to dynamically generate them via a sass map and a couple of simple functions.
+So recently I was working on an angular directive that produced a content card and each of them needed a unique accent color. Each of these cards are produced through an `ng-repeat` as a result of an api response that was fairly limited in data / context. Essentially all I had to identify each card was a single letter that was used on each card.
+
+Usually in this situation I would just manually write six disctinct classes since there was such a small number of variants but lately I've been seeing some fun applications of sass maps and functions so I wanted to give them a shot. Below is what I ended up with.
 
 
     $card_colors: (
@@ -25,3 +28,7 @@ So recently I was working on a series of content cards and each of them needed a
         background-color: get-color($background);
       }
     }
+
+Overall I'm pretty pleased with the power of this approach but I do worry a little about how readable and maintainable this approach would be for a developer that comes behind me.
+
+I also at some point need to do some performance evaluations as traditionally sass maps haven't been recommended in production due to performance. Thoughts?

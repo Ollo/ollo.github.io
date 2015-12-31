@@ -18,12 +18,17 @@
   },
   "devDependencies": {
     "gulp": "^3.9.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-sass": "^2.1.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-watch": "^4.3.5",
     "node-sass": "^3.4.2"
   },
   "description": "Personal site / blog built with Hexo",
   "main": "/themes/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server"
   },
   "repository": {
     "type": "git",
@@ -31,8 +36,5 @@
   },
   "author": "Joshua Ray",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Ollo/ollo.github.com/issues"
-  },
-  "homepage": "https://github.com/Ollo/ollo.github.com"
+  "homepage": "ollomedia.com"
 }
