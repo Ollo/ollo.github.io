@@ -6,8 +6,8 @@
     {% include '_partials/article.swig' with pipe %}
   </section>
 
-  <footer class="author wrapper">
-    <figure class="bio">
+  <footer class="author">
+    <figure class="bio wrapper">
       <img class="bio_avatar" src="/images/profile16.jpeg" />
       <figcaption class="bio_content">
         <h4>Thanks for reading...</h4>
