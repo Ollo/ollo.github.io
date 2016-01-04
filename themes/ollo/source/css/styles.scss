@@ -34,7 +34,7 @@
 
     a {
       border-bottom: transparent;
-      margin-right: 0.75rem;
+      // margin-right: 0.75rem;
 
       &:hover {
         border-bottom: transparent;
@@ -67,7 +67,8 @@
 
 .tag {
   padding: 0.5rem 0.75rem;
-  margin-right: 1rem;
+  margin: 0 1rem 1rem 0;
+  display: inline-block;
 }
 
 .pagination {
