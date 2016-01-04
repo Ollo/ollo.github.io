@@ -39,17 +39,29 @@
         border-bottom: transparent;
       }
 
+      span {
+        display: none;
+      }
+
       @include tablet {
         margin: 0 1rem;
+
+        span {
+          display: inline-block;
+        }
       }
     }
   }
 }
 
 .post {
-  padding: 4rem;
+  padding: 2rem;
   background: $white;
   border-bottom: 1px dashed $gray;
+
+  @include tablet {
+    padding: 4rem;
+  }
 }
 
 .tag {
@@ -59,7 +71,7 @@
 
 .pagination {
   @extend %clearfix;
-  margin: 2rem 0;
+  margin: 2rem;
 }
 
 .pagination_next {
