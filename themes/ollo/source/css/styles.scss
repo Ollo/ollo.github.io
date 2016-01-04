@@ -34,6 +34,7 @@
 
     a {
       border-bottom: transparent;
+      margin-right: 0.75rem;
 
       &:hover {
         border-bottom: transparent;
@@ -44,7 +45,7 @@
       }
 
       @include tablet {
-        margin: 0 1rem;
+        margin-right: 1rem;
 
         span {
           display: inline-block;
@@ -71,7 +72,7 @@
 
 .pagination {
   @extend %clearfix;
-  margin: 2rem;
+  margin: 2remg;
 }
 
 .pagination_next {
