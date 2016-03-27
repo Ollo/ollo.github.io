@@ -7,8 +7,6 @@
     <meta name="description" content="{{ config.description }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
-
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="/css/styles.css" type="text/css">
 

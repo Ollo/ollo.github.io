@@ -13,7 +13,7 @@
     <div class="post_tags">
     <p><strong>tagged:</strong></p>
     {% for tag in item.tags %}
-      <a href="{{ url_for(tag.path ) }}" class="tag tag-{{loop.index}}">{{ tag.name }}</a>
+      <a href="{{ url_for(tag.path) }}" class="tag tag-{{loop.index}}">{{ tag.name }}</a>
     {% endfor %}
     </div>
   {% endif %}
