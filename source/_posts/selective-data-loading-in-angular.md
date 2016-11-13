@@ -10,7 +10,7 @@ The feature called for an adaptive carousel that loaded different data based on 
 
 Typically developers will just hide and show different versions of the component based on a css breakpoint. But this approach means that all the data is loaded potentially multiple times and just hidden if its not needed in the view. This can cause very latent interfaces on mobile so I decided to tackle this through javascript.
 
-```
+```javascript
 determineShowAmount($window);
 
 // Only show the number of cards appropriate for the viewport
