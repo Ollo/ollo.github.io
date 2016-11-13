@@ -1,7 +1,7 @@
 {% include '_partials/head.swig' %}
 
 <body>
-  <section>
+  <section class="site-header">
     <header class="masthead">
       <h1 class="title"><a href="{{ config.root }}">{{ config.title }}</a></h1>
       <div class="social">

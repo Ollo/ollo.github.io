@@ -5,12 +5,16 @@
 @import "_partials/code";
 
 
+.site-header {
+  border-bottom: 1px dashed $gray;
+}
+
 .masthead {
+  max-width: 100rem;
   padding: 0 2rem;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  border-bottom: 1px dashed $gray;
+  margin: 0 auto;
 
   .title {
     font-size: 3rem;
