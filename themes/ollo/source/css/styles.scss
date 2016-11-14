@@ -22,6 +22,9 @@
     text-transform: uppercase;
     flex-order: 1;
     flex-grow: 1;
+    @include tablet {
+      padding-left: 4rem;
+    }
   }
 
   .about {
@@ -35,6 +38,9 @@
     order: 3;
     flex-grow: 3;
     text-align: right;
+    @include tablet {
+      padding-right: 4rem;
+    }
 
     a {
       border-bottom: transparent;
@@ -77,7 +83,7 @@
 
 .pagination {
   @extend %clearfix;
-  margin: 2remg;
+  margin: 4rem 0;
 }
 
 .pagination_next {
