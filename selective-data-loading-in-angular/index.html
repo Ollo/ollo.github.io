@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Ollomedia |  selective data loading in angular  </title>
+    <meta name="description" content="Joshua Ray is a web developer from St. Louis currently residing in Boulder CO.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="HhV5rTmhX1kf5DWeoQx-s3hNmITH4MwwmOzkETbmv0E" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+
+<body>
+  <section class="site-header">
+    <header class="masthead">
+      <h1 class="title"><a href="/">Ollomedia</a></h1>
+      <div class="social">
+        <a href="https://twitter.com/ollomedia" title="twitter" target="_blank">{ T<span>witter</span> }</a>
+        <a href="https://github.com/Ollo" title="github" target="_blank">{ G<span>ithub</span> }</a>
+        <a href="https://www.linkedin.com/in/ollomedia" title="linkedin" target="_blank">{ L<span>inkedIn</span> }</a>
+      </div>
+    </header>
+  </section>
+  <main>
+    
+  <section class="posts wrapper">
+    
+    <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/selective-data-loading-in-angular/">selective data loading in angular</a></h3>
+    <p class="light post_date">Apr 27, 2016</p>
+  </header>
+
+  <div class="post_content">
+    <p>Today I was working on a new feature for a large angular application.<br>The feature called for an adaptive carousel that loaded different data based on the viewport. I typically dislike this kind of design since if not handled correctly can create bad experiences for mobile users.</p>
+<p>Typically developers will just hide and show different versions of the component based on a css breakpoint. But this approach means that all the data is loaded potentially multiple times and just hidden if its not needed in the view. This can cause very latent interfaces on mobile so I decided to tackle this through javascript.</p>
+<pre><code class="javascript">determineShowAmount($window);
+
+// Only show the number of cards appropriate for the viewport
+angular.element($window).on(&#39;resize&#39;, function() {
+  determineShowAmount($window);
+  $scope.$digest();
+});
+
+
+function determineShowAmount($window) {
+  if($window.innerWidth &lt; 768) {
+    $scope.cardLimit = 2;
+  }
+  else if ($window.innerWidth &gt;= 768 &amp;&amp; $window.innerWidth &lt; 1024) {
+    return $scope.cardLimit = 3;
+  }
+  else {
+    return $scope.cardLimit = 4;
+  }
+}
+</code></pre>
+<p>I still have some performance testing to do as binding to the <code>$window</code> resize event feels potentially expensive but so far the performance has been great.</p>
+<p>If anyone has any feedback or better practices for this type of scenario I would love to hear it. Hit me up on twitter and let me know.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/javascript/" class="tag tag-1">javascript</a>
+    
+      <a href="/tags/angular/" class="tag tag-2">angular</a>
+    
+    </div>
+  
+
+</article>
+
+  </section>
+
+  <footer class="author">
+    <figure class="bio wrapper">
+      <img class="bio_avatar" src="/images/profile16.jpeg" />
+      <figcaption class="bio_content">
+        <h4>Thanks for reading...</h4>
+        <p>I'm Joshua a front end developer from Boulder, CO that's smitten with sass and javascript and hates comic sans. When I'm not building web applications for startups I enjoy snowboarding, hiking, micro brews and playing video games.</p>
+        <p>Have thoughts on this article?
+          <a href="https://twitter.com/share" class="twitter-share-button" data-via="ollomedia" data-related="ollomedia">Tweet</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+          </script>
+        </p>
+      </figcaption>
+    </figure>
+  </footer>
+
+
+  </main>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-6384815-4', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

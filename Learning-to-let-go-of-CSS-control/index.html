@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Ollomedia |  Learning to let go of CSS control  </title>
+    <meta name="description" content="Joshua Ray is a web developer from St. Louis currently residing in Boulder CO.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="HhV5rTmhX1kf5DWeoQx-s3hNmITH4MwwmOzkETbmv0E" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+
+<body>
+  <section class="site-header">
+    <header class="masthead">
+      <h1 class="title"><a href="/">Ollomedia</a></h1>
+      <div class="social">
+        <a href="https://twitter.com/ollomedia" title="twitter" target="_blank">{ T<span>witter</span> }</a>
+        <a href="https://github.com/Ollo" title="github" target="_blank">{ G<span>ithub</span> }</a>
+        <a href="https://www.linkedin.com/in/ollomedia" title="linkedin" target="_blank">{ L<span>inkedIn</span> }</a>
+      </div>
+    </header>
+  </section>
+  <main>
+    
+  <section class="posts wrapper">
+    
+    <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/Learning-to-let-go-of-CSS-control/">Learning to let go of CSS control</a></h3>
+    <p class="light post_date">Aug 13, 2017</p>
+  </header>
+
+  <div class="post_content">
+    <p>Now that I’ve embraced React and Redux as my javascript framework of choice and have been building with it full time on the last few projects and interesting shift in the way I view CSS has begun.</p>
+<p>Previously I would use a pretty minimal set of partials to bootstrap the styles of an application and I would grow that structure as new features were added on and new variables or mix-ins were required. With React I’m now seeing the vision of a component based architecture realized and this more global approach to styles feels like more of an anti-pattern. Through architecting these component based systems I’m still finding there are uses for some degree of global scope for things like grids for layout so to leverage the best of both worlds I’ve found CSS modules to provide a nice balance.</p>
+<p>To demonstrate here is how my typical component structure is setup.</p>
+<pre><code>/Button
+  /Button.js
+  /index.js
+  /Button.scss
+</code></pre><p>Now typically I would pull in partials in the scss file and attempt to style for all of the permutations that I want to use my button for.</p>
+<p><strong>Button.scss</strong></p>
+<pre><code>@import &#39;_button.scss&#39;
+
+.Button {
+  color: $btn-primary-color;
+  background: $btn-primary-bg-color;
+  ...
+}
+
+.Button--secondary {
+  ...
+}
+</code></pre><p>This worked fairly well for a time but I found that there we lots of instances where I needed to override the default styles to work with a specific composition like in a modal footer or as part of a form. So I would stack a new class onto the component in more of a BEM approach using the <code>getClassNames</code> utility I shared in a previous post</p>
+<p><strong>Button.js</strong></p>
+<pre><code>function getClasses (parentClasses) {
+  const componentClasses = [
+    &#39;Button&#39;
+  ]
+  if (parentClasses) {
+    componentClasses.push(parentClasses)
+  }
+  return componentClasses.join(&#39; &#39;)
+}
+
+
+&lt;Button className={ getClasses(&#39;Sign-Up__footer-button&#39;) } /&gt;
+</code></pre><p>This worked well for a time but I found that I was writing a lot more CSS to cover the specific instances where I needed a set of minor tweaks for a composition than I should need but I didn’t want to create a big list of modifiers as that wouldn’t be maintainable. This approach also felt wrong as the majority of these styles weren’t re-usable which defeats the enhancements that originally brought me into preprocessors.</p>
+<p>Another challenge was that now that I work in a dedicated javascript development role I collaborate with designers that manage the bulk of our CSS across projects so maintaining my own set of partials isn’t really feasible as the baselines need to be strictly versioned outside of my project.</p>
+<p>To solve these challenges my team and I decided to adopt CSS modules. By using composition we are now able to maintain a large set of finely tuned variables and mix-ins in a separate project managed as an npm package without designers needing to be up to their eyeballs in React and I can focus on component design without risk of straying from our design standards. To demonstrate here is how I would build the button component. </p>
+<p><strong>Button.scss</strong></p>
+<pre><code>.Button {
+  composes: Button from &#39;~/teamsnap-ui/src/_button.scss&#39;;
+}
+</code></pre><p><strong>Button.js</strong></p>
+<pre><code>import styles from &#39;./Button.scss&#39;
+
+&lt;Button className={ styles.Button } /&gt;
+</code></pre><p>There are still plenty of challenges to solve for such as how to theme a component for re-use across projects but I’m finding this outsourcing of the primary styles is working really well. I also get the benefit of collision projection BEM provides automatically due to the way these CSS module composed styles are converted into classes via javascript <code>.Form-Button__as34sdf</code>. </p>
+<p>I’ve found there are still a few use cases for more global CSS such as grid classes you want to just apply to a component but I’m confident that with time we can find elegant solutions to maintain those as components as well. I hope this helps you find new ways to leverage component architecture and if you have any feedback or suggestions be sure to hit me up on Twitter. Happy Coding.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/css/" class="tag tag-1">css</a>
+    
+      <a href="/tags/architecture/" class="tag tag-2">architecture</a>
+    
+    </div>
+  
+
+</article>
+
+  </section>
+
+  <footer class="author">
+    <figure class="bio wrapper">
+      <img class="bio_avatar" src="/images/profile16.jpeg" />
+      <figcaption class="bio_content">
+        <h4>Thanks for reading...</h4>
+        <p>I'm Joshua a front end developer from Boulder, CO that's smitten with sass and javascript and hates comic sans. When I'm not building web applications for startups I enjoy snowboarding, hiking, micro brews and playing video games.</p>
+        <p>Have thoughts on this article?
+          <a href="https://twitter.com/share" class="twitter-share-button" data-via="ollomedia" data-related="ollomedia">Tweet</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+          </script>
+        </p>
+      </figcaption>
+    </figure>
+  </footer>
+
+
+  </main>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-6384815-4', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Ollomedia |  Using Twitter Bootstrap the right way  </title>
+    <meta name="description" content="Joshua Ray is a web developer from St. Louis currently residing in Boulder CO.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="HhV5rTmhX1kf5DWeoQx-s3hNmITH4MwwmOzkETbmv0E" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+
+<body>
+  <section class="site-header">
+    <header class="masthead">
+      <h1 class="title"><a href="/">Ollomedia</a></h1>
+      <div class="social">
+        <a href="https://twitter.com/ollomedia" title="twitter" target="_blank">{ T<span>witter</span> }</a>
+        <a href="https://github.com/Ollo" title="github" target="_blank">{ G<span>ithub</span> }</a>
+        <a href="https://www.linkedin.com/in/ollomedia" title="linkedin" target="_blank">{ L<span>inkedIn</span> }</a>
+      </div>
+    </header>
+  </section>
+  <main>
+    
+  <section class="posts wrapper">
+    
+    <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/using-twitter-bootstrap-the-right-way/">Using Twitter Bootstrap the right way</a></h3>
+    <p class="light post_date">Oct 12, 2012</p>
+  </header>
+
+  <div class="post_content">
+    <p>So if you haven’t jumped into bootstrap to speed up front end development or at least explored it you need to, and hopefully this writeup taken from some of my successes and failures will help jumpstart you into using it effectively as<br>a front end scaffold.</p>
+<h3 id="First-we-need-to-understand-that-Bootstrap-is-a-framework"><a href="#First-we-need-to-understand-that-Bootstrap-is-a-framework" class="headerlink" title="First we need to understand that Bootstrap is a framework.."></a>First we need to understand that Bootstrap is a framework..</h3><p>One of my first mistakes was in not really understanding what this means and customizing its core directly. This mistake has caused numerous problems like being stuck with an older version and working way harder to override its css output :(</p>
+<p>After the first couple of projects I found that the only way to use it effectively is to build off of it and not customize its core files directly. This concept is similar to other platforms and libraries I use { jQuery or WordPress } but it didn’t occur to me immediately since it was a front end framework and the early documentation guided users to work off of the variables to customize it. This caused me plenty of problems until I found the below approach.</p>
+<h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><h3 id="Download-the-full-source-from-Github-the-LESS-version"><a href="#Download-the-full-source-from-Github-the-LESS-version" class="headerlink" title="Download the full source from Github { the LESS version }"></a>Download the full source from Github { the LESS version }</h3><p><a href="https://github.com/twitter/bootstrap" target="_blank" rel="external">https://github.com/twitter/bootstrap</a> This is the full core of the framework. It will take some learning if your not already using LESS but it shows how the features are truly built. If you haven’t already viewed bootstrap like this take some time and examine the files and learn which features are created through each file, there are quite a few and learning where they are defined will help later when you want to build off of them or over-ride their look and feel.</p>
+<h3 id="Get-the-right-tools"><a href="#Get-the-right-tools" class="headerlink" title="Get the right tools"></a>Get the right tools</h3><p>I use a compiler which took some time to getting used to as a front end guy who’s previous experience with compilers was <a href="http://www.bloodshed.net/devcpp.html" target="_blank" rel="external">Dev C++</a> in an intro CS class. I’ve come to find with a little flexibility in my workflow it speeds things up and can help with debugging as I’m adapting to using LESS instead of just CSS. I currently use <a href="http://incident57.com/codekit/" target="_blank" rel="external">CodeKit</a> which offers some cool js and framework support. It is a paid app so if your just getting started you might want to try some of the free options { <a href="http://incident57.com/less/" target="_blank" rel="external">LESS for Mac</a>, <a href="http://winless.org/" target="_blank" rel="external">WinLess</a> ( ironic ), <a href="http://wearekiss.com/simpless" target="_blank" rel="external">Simpless</a>, or <a href="http://crunchapp.net/" target="_blank" rel="external">Crunch</a>. }</p>
+<h3 id="Set-up-your-development-project"><a href="#Set-up-your-development-project" class="headerlink" title="Set up your development project"></a>Set up your development project</h3><p>Recently at WordCamp here in St. Louis I discussed theme development best practices and one of the concepts I covered was abstraction. The concept holds true in the method I use to work with bootstrap which I find to work really well. I start with a basic project folder for the site name or project I’m working on and create the basic folder structure for the types of files I will be using. I also add a folder called bootstrap to contain the frameworks less files.</p>
+<p>Now I copy over the files from bootstrap that I downloaded from Github into the appropriate directories minus the tests folders that were used in development. Now I have a clean folder structure with some basic assets to start using on my project.</p>
+<h3 id="Getting-started"><a href="#Getting-started" class="headerlink" title="Getting started"></a>Getting started</h3><p>Now that you have a basic site structure lets set up our compiler with some resources and instructions on how to produce our styles. First inside of our less folder lets create some .less files to tell the compiler what we are working with. I start with a</p>
+<ul>
+<li><code>style.less</code> { the master file },</li>
+<li><code>layout.less</code> { general layout },</li>
+<li><code>theme.less</code> { colors, buttons, etc }</li>
+<li><code>typography.less</code> { for headings and type faces }</li>
+<li><code>misc.less</code> for mixins and utility classes.</li>
+</ul>
+<p>Once these files are created open your <code>style.less</code> file and add the following lines.</p>
+<pre><code>/* my new bootstrap site */
+
+@import &quot;../bootstrap/bootstrap.less&quot;;
+@import &quot;../bootstrap/responsive.less&quot;;
+
+// import your unique less files as you build
+
+@import &quot;layout.less&quot;;
+@import &quot;theme.less&quot;;
+@import &quot;typography.less&quot;;
+@import &quot;misc.less&quot;  // mixins etc
+</code></pre><p>Once you have created these files and this structure you can open your compiler of choice and add your new project. In CodeKit you simply click the (+) plus sign and browse for your site folder. Once you have chosen this lets modify the compiler behavior.</p>
+<p>Basically we want to make sure it is detecting the import statements and that it is only compiling the single style.less file. Also if it doesn’t automatically set the output path for the compiled css you will want to right click and tell it to use /css/style.css. Now we can get started on building our new site with less and the power of bootstrap so if your not already confused read on.</p>
+<h3 id="File-Strategy"><a href="#File-Strategy" class="headerlink" title="File Strategy"></a>File Strategy</h3><p>I mentioned before that one of the key things I’ve learned as a developer is abstraction. This concept is constantly at the back of my mind when I’m working on a project because I find its the best way to build readable clean code that someone else may have to work on down the road after I’m finished working on a project. When I set up my less folder with those basic files in the previous step its just a starting point. As I get further into a site I will create several more less files and import them into the style.less file so they are compiled into the final css. This maintains clean easy pieces in my code that are easy to digest.</p>
+<p>I also heavily comment using less comments <code>//</code> as they don’t end up in the css and are a courteous way to document my train of thought as I’m working on a layout.</p>
+<blockquote>
+<p><strong><em>The key thing is to not be afraid of files.</em></strong></p>
+</blockquote>
+<p>With this method and less they are compiled into one css file so your not adding a bunch of extra http calls and damaging your sites load time by keeping everything broken out and readable. You can even take optimization a step further when your ready to put your site into production and only import the bootstrap files that actually pertain to your design.</p>
+<p><strong><em>Wait.. what ?</em></strong></p>
+<p>Yes. If you open the bootstrap.less file from the framework you’ll see they are doing the same thing with import statements so you can lower the end size of your css file by only pulling what you need!</p>
+<h3 id="Closing"><a href="#Closing" class="headerlink" title="Closing"></a>Closing</h3><p>This has taken a couple of months for me to refine and get comfortable with but now I’m finally starting to see the benefits as I work with a team of developers on larger projects. This organization lets us minimize development time and makes our code easier to understand without lots of instruction and I hope it helps you on your development projects in the future. If you see improvements that can be made I’d love to hear your feedback or findings while you experiment.</p>
+<p>Happy coding.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/css/" class="tag tag-1">css</a>
+    
+      <a href="/tags/web-development/" class="tag tag-2">web development</a>
+    
+      <a href="/tags/less/" class="tag tag-3">less</a>
+    
+    </div>
+  
+
+</article>
+
+  </section>
+
+  <footer class="author">
+    <figure class="bio wrapper">
+      <img class="bio_avatar" src="/images/profile16.jpeg" />
+      <figcaption class="bio_content">
+        <h4>Thanks for reading...</h4>
+        <p>I'm Joshua a front end developer from Boulder, CO that's smitten with sass and javascript and hates comic sans. When I'm not building web applications for startups I enjoy snowboarding, hiking, micro brews and playing video games.</p>
+        <p>Have thoughts on this article?
+          <a href="https://twitter.com/share" class="twitter-share-button" data-via="ollomedia" data-related="ollomedia">Tweet</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+          </script>
+        </p>
+      </figcaption>
+    </figure>
+  </footer>
+
+
+  </main>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-6384815-4', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Ollomedia |  Tales from the Front End by Joshua Ray  </title>
+    <meta name="description" content="Joshua Ray is a web developer from St. Louis currently residing in Boulder CO.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="HhV5rTmhX1kf5DWeoQx-s3hNmITH4MwwmOzkETbmv0E" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+
+<body>
+  <section class="site-header">
+    <header class="masthead">
+      <h1 class="title"><a href="/">Ollomedia</a></h1>
+      <div class="social">
+        <a href="https://twitter.com/ollomedia" title="twitter" target="_blank">{ T<span>witter</span> }</a>
+        <a href="https://github.com/Ollo" title="github" target="_blank">{ G<span>ithub</span> }</a>
+        <a href="https://www.linkedin.com/in/ollomedia" title="linkedin" target="_blank">{ L<span>inkedIn</span> }</a>
+      </div>
+    </header>
+  </section>
+  <main>
+    
+  <section class="posts wrapper">
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/using-twitter-bootstrap-the-right-way/">Using Twitter Bootstrap the right way</a></h3>
+    <p class="light post_date">Oct 12, 2012</p>
+  </header>
+
+  <div class="post_content">
+    <p>So if you haven’t jumped into bootstrap to speed up front end development or at least explored it you need to, and hopefully this writeup taken from some of my successes and failures will help jumpstart you into using it effectively as<br>a front end scaffold.</p>
+<h3 id="First-we-need-to-understand-that-Bootstrap-is-a-framework"><a href="#First-we-need-to-understand-that-Bootstrap-is-a-framework" class="headerlink" title="First we need to understand that Bootstrap is a framework.."></a>First we need to understand that Bootstrap is a framework..</h3><p>One of my first mistakes was in not really understanding what this means and customizing its core directly. This mistake has caused numerous problems like being stuck with an older version and working way harder to override its css output :(</p>
+<p>After the first couple of projects I found that the only way to use it effectively is to build off of it and not customize its core files directly. This concept is similar to other platforms and libraries I use { jQuery or WordPress } but it didn’t occur to me immediately since it was a front end framework and the early documentation guided users to work off of the variables to customize it. This caused me plenty of problems until I found the below approach.</p>
+<h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><h3 id="Download-the-full-source-from-Github-the-LESS-version"><a href="#Download-the-full-source-from-Github-the-LESS-version" class="headerlink" title="Download the full source from Github { the LESS version }"></a>Download the full source from Github { the LESS version }</h3><p><a href="https://github.com/twitter/bootstrap" target="_blank" rel="external">https://github.com/twitter/bootstrap</a> This is the full core of the framework. It will take some learning if your not already using LESS but it shows how the features are truly built. If you haven’t already viewed bootstrap like this take some time and examine the files and learn which features are created through each file, there are quite a few and learning where they are defined will help later when you want to build off of them or over-ride their look and feel.</p>
+<h3 id="Get-the-right-tools"><a href="#Get-the-right-tools" class="headerlink" title="Get the right tools"></a>Get the right tools</h3><p>I use a compiler which took some time to getting used to as a front end guy who’s previous experience with compilers was <a href="http://www.bloodshed.net/devcpp.html" target="_blank" rel="external">Dev C++</a> in an intro CS class. I’ve come to find with a little flexibility in my workflow it speeds things up and can help with debugging as I’m adapting to using LESS instead of just CSS. I currently use <a href="http://incident57.com/codekit/" target="_blank" rel="external">CodeKit</a> which offers some cool js and framework support. It is a paid app so if your just getting started you might want to try some of the free options { <a href="http://incident57.com/less/" target="_blank" rel="external">LESS for Mac</a>, <a href="http://winless.org/" target="_blank" rel="external">WinLess</a> ( ironic ), <a href="http://wearekiss.com/simpless" target="_blank" rel="external">Simpless</a>, or <a href="http://crunchapp.net/" target="_blank" rel="external">Crunch</a>. }</p>
+<h3 id="Set-up-your-development-project"><a href="#Set-up-your-development-project" class="headerlink" title="Set up your development project"></a>Set up your development project</h3><p>Recently at WordCamp here in St. Louis I discussed theme development best practices and one of the concepts I covered was abstraction. The concept holds true in the method I use to work with bootstrap which I find to work really well. I start with a basic project folder for the site name or project I’m working on and create the basic folder structure for the types of files I will be using. I also add a folder called bootstrap to contain the frameworks less files.</p>
+<p>Now I copy over the files from bootstrap that I downloaded from Github into the appropriate directories minus the tests folders that were used in development. Now I have a clean folder structure with some basic assets to start using on my project.</p>
+<h3 id="Getting-started"><a href="#Getting-started" class="headerlink" title="Getting started"></a>Getting started</h3><p>Now that you have a basic site structure lets set up our compiler with some resources and instructions on how to produce our styles. First inside of our less folder lets create some .less files to tell the compiler what we are working with. I start with a</p>
+<ul>
+<li><code>style.less</code> { the master file },</li>
+<li><code>layout.less</code> { general layout },</li>
+<li><code>theme.less</code> { colors, buttons, etc }</li>
+<li><code>typography.less</code> { for headings and type faces }</li>
+<li><code>misc.less</code> for mixins and utility classes.</li>
+</ul>
+<p>Once these files are created open your <code>style.less</code> file and add the following lines.</p>
+<pre><code>/* my new bootstrap site */
+
+@import &quot;../bootstrap/bootstrap.less&quot;;
+@import &quot;../bootstrap/responsive.less&quot;;
+
+// import your unique less files as you build
+
+@import &quot;layout.less&quot;;
+@import &quot;theme.less&quot;;
+@import &quot;typography.less&quot;;
+@import &quot;misc.less&quot;  // mixins etc
+</code></pre><p>Once you have created these files and this structure you can open your compiler of choice and add your new project. In CodeKit you simply click the (+) plus sign and browse for your site folder. Once you have chosen this lets modify the compiler behavior.</p>
+<p>Basically we want to make sure it is detecting the import statements and that it is only compiling the single style.less file. Also if it doesn’t automatically set the output path for the compiled css you will want to right click and tell it to use /css/style.css. Now we can get started on building our new site with less and the power of bootstrap so if your not already confused read on.</p>
+<h3 id="File-Strategy"><a href="#File-Strategy" class="headerlink" title="File Strategy"></a>File Strategy</h3><p>I mentioned before that one of the key things I’ve learned as a developer is abstraction. This concept is constantly at the back of my mind when I’m working on a project because I find its the best way to build readable clean code that someone else may have to work on down the road after I’m finished working on a project. When I set up my less folder with those basic files in the previous step its just a starting point. As I get further into a site I will create several more less files and import them into the style.less file so they are compiled into the final css. This maintains clean easy pieces in my code that are easy to digest.</p>
+<p>I also heavily comment using less comments <code>//</code> as they don’t end up in the css and are a courteous way to document my train of thought as I’m working on a layout.</p>
+<blockquote>
+<p><strong><em>The key thing is to not be afraid of files.</em></strong></p>
+</blockquote>
+<p>With this method and less they are compiled into one css file so your not adding a bunch of extra http calls and damaging your sites load time by keeping everything broken out and readable. You can even take optimization a step further when your ready to put your site into production and only import the bootstrap files that actually pertain to your design.</p>
+<p><strong><em>Wait.. what ?</em></strong></p>
+<p>Yes. If you open the bootstrap.less file from the framework you’ll see they are doing the same thing with import statements so you can lower the end size of your css file by only pulling what you need!</p>
+<h3 id="Closing"><a href="#Closing" class="headerlink" title="Closing"></a>Closing</h3><p>This has taken a couple of months for me to refine and get comfortable with but now I’m finally starting to see the benefits as I work with a team of developers on larger projects. This organization lets us minimize development time and makes our code easier to understand without lots of instruction and I hope it helps you on your development projects in the future. If you see improvements that can be made I’d love to hear your feedback or findings while you experiment.</p>
+<p>Happy coding.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/css/" class="tag tag-1">css</a>
+    
+      <a href="/tags/web-development/" class="tag tag-2">web development</a>
+    
+      <a href="/tags/less/" class="tag tag-3">less</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/wordpress-development-tools/">WordPress development tools</a></h3>
+    <p class="light post_date">Sep 26, 2012</p>
+  </header>
+
+  <div class="post_content">
+    <p>So I just launched my new WordPress theme. This was more playing catch up than a marketing tactic. I have been working with WordPress for almost five years now but have been so busy with client work and freelance projects that I had left my site to rot.</p>
+<p>I regrettably was using a theme I tweaked from twenty ten which was clean but didn’t really capture my style or current WordPress theming capabilities. I also have until recently gotten way behind in my writing activities so rebuilding is a good way for me to get involved in my site and the fun in having a WordPress site.</p>
+<p>The latest theme is built from scratch using twitter bootstrap and some tweaks I have learned along the way. There is still plenty of things I want to polish on the theme, but I think some of these initial development discoveries deserve consideration if you are building your own WordPress themes.</p>
+<h3 id="Tools-I’ve-recently-adopted"><a href="#Tools-I’ve-recently-adopted" class="headerlink" title="Tools I’ve recently adopted"></a>Tools I’ve recently adopted</h3><p>Beyond my standard tools { textmate, terminal and a browser } I started working with a couple of new tools in my development workflow.</p>
+<h4 id="The-Less-App-for-Mac"><a href="#The-Less-App-for-Mac" class="headerlink" title="The Less App for Mac"></a><a href="http://incident57.com/less/" target="_blank" rel="external">The Less App for Mac</a></h4><p>This is a simple app but when handling several less files from a framework like bootstrap it takes a lot out of the guesswork and helps get a solid workflow. Some <a href="http://lesscss.org" target="_blank" rel="external">less knowledge</a> is needed but after this theme and several of the latest ones at work I’ve found this language speeds up css development considerably and is well worth the effort to explore.</p>
+<p>The developer also has another project some of my co-workers and I are testing right now called code-kit which also looks very promising</p>
+<h4 id="Twitter-Bootstrap"><a href="#Twitter-Bootstrap" class="headerlink" title="Twitter Bootstrap"></a><a href="http://twitter.github.com/bootstrap" target="_blank" rel="external">Twitter Bootstrap</a></h4><p>Yes… I know lots of very important well known developers have already talked about this framework. I admittedly have been looking it over for a year and just now am really learning how to use it to speed up my projects and simplify my development workflow.</p>
+<p>If you haven’t reviewed this yet, I can’t recommend it enough and I hope to have many more posts in the future discussing techniques to customize it and use it for project specific functionality.</p>
+<h4 id="Github"><a href="#Github" class="headerlink" title="Github"></a><a href="http://github.com" target="_blank" rel="external">Github</a></h4><p>Yes I know this is old news. Yes I know you are probably way cooler and nerdier than me and have been using this for years. I first learned about github and WordCamp two years ago and now finally understand why it is so important. At Integrity we now use git daily to manage all of our development projects. This is an amazing tool and when working in a team setting it makes collaboration more efficient. The secret to using this in my opinion is branching and I plan to write another post soon on my git workflow for WordPress theming.</p>
+<h4 id="Search-Wordpress-org-Codex"><a href="#Search-Wordpress-org-Codex" class="headerlink" title="Search Wordpress.org Codex"></a><a href="https://chrome.google.com/webstore/detail/bbiamkpoidpgblfebchjfldmiomhafcg" target="_blank" rel="external">Search Wordpress.org Codex</a></h4><p>Lastly I use an awesome but simple <a href="https://chrome.google.com/webstore/detail/bbiamkpoidpgblfebchjfldmiomhafcg" target="_blank" rel="external">chrome extension</a> that I use constantly for instant access to the <a href="http://codex.wordpress.org/" target="_blank" rel="external">WordPress Codex</a>. When I learned PHP the first think I learned was how to search php.net for functions and documentation so that approach has guided all that I have researched and learned about developing with WordPress. This extension allows me to just open a tab and type “wp” + space + “function, term, or keyword” and immediately jump to the source for documentation. I recommend this <a href="https://chrome.google.com/webstore/detail/bbiamkpoidpgblfebchjfldmiomhafcg" target="_blank" rel="external"> extension</a> to all of our new developers and hope you too can find it useful.</p>
+<p>If you’ve used one of these tools and think their awesome or think they are sub par to a solution you have found let me know via a comment. I’ll be writing again soon time permitting on some of the workflows I’ve developed with these tools and any new finds. Thanks for reading.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/web-development/" class="tag tag-1">web development</a>
+    
+      <a href="/tags/WordPress/" class="tag tag-2">WordPress</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/speaking-at-wordcamp/">Speaking at WordCamp</a></h3>
+    <p class="light post_date">Sep 17, 2012</p>
+  </header>
+
+  <div class="post_content">
+    <p>So thanks to my awesome boss Ed @ <a href="http://integritystl.com" target="_blank" rel="external">Integrity</a> I was recommended, and will be giving a chat with my rad comrade Arod this year at WordCamp in St. Louis.</p>
+<p>We’re planning a chat for developers that focuses on how to architect a really awesome WordPress theme. Our focus is on how using custom post types, custom meta boxes, and admin customizations can make WordPress a true CMS and easy for clients to learn.</p>
+<p>I’m posting the slides on a new service I found created by the guys at <a href="http://github.com" target="_blank" rel="external">Github</a> called <a href="http://speakerdeck.com" target="_blank" rel="external">Speaker Deck</a>. I like the so far and its simple. It creates your presentation in by uploading a pdf, this makes prep minimal and I get to avoid powerpoint.</p>
+<p>Arod and I still have plenty of prep to do but we’re super excited. This will be the first year we have presented and my third WordCamp to attend.</p>
+<p>Check back for a follow up post on the details of the event and links to the slides from our chat</p>
+<p><strong>UPDATE</strong></p>
+<p>Arod and I had a great session that was standing room only! We totally enjoyed the experience and had some really encouraging feedback.</p>
+<p>Here are the <a href="https://speakerdeck.com/ollo/wcstl12" target="_blank" rel="external">slides</a> from the presentation for all those interested</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/web-development/" class="tag tag-1">web development</a>
+    
+      <a href="/tags/WordPress/" class="tag tag-2">WordPress</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/how-to-track-adwords-conversions-on-click-with-jquery/">How to track adwords conversions on click with Jquery</a></h3>
+    <p class="light post_date">Aug 29, 2012</p>
+  </header>
+
+  <div class="post_content">
+    <p>A challenge I’ve found with conversion tracking is that it requires a user to visit a specific page with conversion tracking code installed in order to register as a conversion ie a landing page. This doesn’t always work and makes it difficult to track different forms of conversion such as clicks to third party sites. When faced with this scenario for a client I had to find a solution to track a conversion based on click from an ad. Below is the method and code used to do this using jquery , Google adwords and some html.</p>
+<p>First create an html file with your campaigns conversion tracking code from google adwords and add it to your site files.</p>
+<pre><code>&lt;html&gt;
+&lt;body&gt;
+    &lt;!-- Google Code for Conversion Page --&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+    /* &lt;![CDATA[ */
+    var google_conversion_id = xxxxxxxxx;
+    var google_conversion_language = &quot;en&quot;;
+    var google_conversion_format = &quot;3&quot;;
+    var google_conversion_color = &quot;ffffff&quot;;
+    var google_conversion_label = &quot;_ArfCLPt9QMQrcfZ2AM&quot;;
+    var google_conversion_value = 0;
+    /* ]]&gt; */
+    &lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;http://www.googleadservices.com/pagead/conversion.js&quot;&gt;
+    &lt;/script&gt;
+    &lt;noscript&gt;
+    &lt;div style=&quot;display:inline;&quot;&gt;
+    &lt;img height=&quot;1&quot; width=&quot;1&quot; style=&quot;border-style:none;&quot; alt=&quot;&quot; src=&quot;http://www.googleadservices.com/pagead/conversion/xxxxxxxxx/?label=_ArfCLPt9QMQrcfZ2AM&amp;amp;amp;guid=ON&amp;amp;amp;script=0&quot;/&gt;
+    &lt;/div&gt;
+    &lt;/noscript&gt;
+
+    &lt;script type=&quot;text/javascript&quot;&gt;
+
+      var _gaq = _gaq || [];
+      _gaq.push([&#39;_setAccount&#39;, &#39;UA-xxxxxxxx-1&#39;]);
+      _gaq.push([&#39;_setDomainName&#39;, &#39;yourdomain.com&#39;]);
+      _gaq.push([&#39;_trackPageview&#39;]);
+
+      (function() {
+        var ga = document.createElement(&#39;script&#39;); ga.type = &#39;text/javascript&#39;; ga.async = true;
+        ga.src = (&#39;https:&#39; == document.location.protocol ? &#39;https://ssl&#39; : &#39;http://www&#39;) + &#39;.google-analytics.com/ga.js&#39;;
+        var s = document.getElementsByTagName(&#39;script&#39;)[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>Next add a class to the links or elements you want to track as conversions via click. I added</p>
+<p><code>.clickAction</code> to various buttons and links around the page. Now to create the action add the code below to your header or external js file inside of your document ready function. This script requires <a href="http://jquery.com" target="_blank" rel="external">Jquery</a> So you will need to have that also installed on your site.<br><strong>note: I wrote this for a WordPress site so update the url path to the html file based on your configuration </strong></p>
+<pre><code>$(&#39;.clickAction&#39;).click(function(){
+
+  $(&#39;&lt;iframe id=&quot;converter&quot; height=&quot;1&quot; width=&quot;1&quot; name=&quot;converter&quot;&gt;&#39;).attr(&#39;src&#39;, &lt;?php bloginfo(&#39;template_url&#39;); ?&gt;/tracking.html&#39;).appendTo(&#39;body&#39;);
+
+});
+</code></pre><p>Now any item with the class <code>.clickAction</code> when clicked with load a 1px by 1px transparent iframe at the bottom of the page and register as a conversion. This approach is pretty simple so feel free to reach out if you have questions. Happy analyzing.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/business/" class="tag tag-1">business</a>
+    
+      <a href="/tags/jquery/" class="tag tag-2">jquery</a>
+    
+      <a href="/tags/google-analytics/" class="tag tag-3">google analytics</a>
+    
+    </div>
+  
+
+</article>
+
+    
+
+    <nav class="pagination">
+  
+  
+</nav>
+
+  </section>
+
+  </main>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-6384815-4', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

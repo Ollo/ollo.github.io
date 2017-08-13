@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Ollomedia |  reverting to reset  </title>
+    <meta name="description" content="Joshua Ray is a web developer from St. Louis currently residing in Boulder CO.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="HhV5rTmhX1kf5DWeoQx-s3hNmITH4MwwmOzkETbmv0E" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+
+<body>
+  <section class="site-header">
+    <header class="masthead">
+      <h1 class="title"><a href="/">Ollomedia</a></h1>
+      <div class="social">
+        <a href="https://twitter.com/ollomedia" title="twitter" target="_blank">{ T<span>witter</span> }</a>
+        <a href="https://github.com/Ollo" title="github" target="_blank">{ G<span>ithub</span> }</a>
+        <a href="https://www.linkedin.com/in/ollomedia" title="linkedin" target="_blank">{ L<span>inkedIn</span> }</a>
+      </div>
+    </header>
+  </section>
+  <main>
+    
+  <section class="posts wrapper">
+    
+    <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/reverting-to-reset/">reverting to reset</a></h3>
+    <p class="light post_date">Mar 22, 2016</p>
+  </header>
+
+  <div class="post_content">
+    <p>I love approaching projects from a modular, componentized approach and commonly am looking for new tools or techniques across languages to facilitate this methodology.</p>
+<p>Today I was reading an <a href="http://thesassway.com/advanced/modular-css-typography" target="_blank" rel="external">interesting post</a> on making css typography more modular and came across a thought provoking statement on the authors rationale on using a css reset over something like Normalize.</p>
+<blockquote>
+<p>The other reason to start with a fuller reset is that starting from zero allows you to layer on styles without worrying about turning off other styles. Read that one more time. Anytime you have to turn off styles in multiple places in your stylesheets your are spreading the knowledge of those styles throughout your stylesheet instead of having them in only one place.</p>
+</blockquote>
+<p>This is interesting for me since a couple years back I switched from using Eric Meyers reset to using Normalize so I could focus more on the unique UI components of an application from a sensible baseline instead of having to start from ground zero.</p>
+<p> Reflecting on some of these projects now however, I can 100% see how that mindset / approach can totally backfire and make truly modular code difficult. Typically this has manifested for me any time I needed to refactor a component from being view / feature specific to something more useful to the application globally. I seem to find that the cascade from parent components or default styles are coupling the component and thus quite a bit of css needs to be refactored.</p>
+<p> On my next project I think I’ll try switching back to a reset and see if this assists in better flexibility.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/css/" class="tag tag-1">css</a>
+    
+    </div>
+  
+
+</article>
+
+  </section>
+
+  <footer class="author">
+    <figure class="bio wrapper">
+      <img class="bio_avatar" src="/images/profile16.jpeg" />
+      <figcaption class="bio_content">
+        <h4>Thanks for reading...</h4>
+        <p>I'm Joshua a front end developer from Boulder, CO that's smitten with sass and javascript and hates comic sans. When I'm not building web applications for startups I enjoy snowboarding, hiking, micro brews and playing video games.</p>
+        <p>Have thoughts on this article?
+          <a href="https://twitter.com/share" class="twitter-share-button" data-via="ollomedia" data-related="ollomedia">Tweet</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+          </script>
+        </p>
+      </figcaption>
+    </figure>
+  </footer>
+
+
+  </main>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-6384815-4', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

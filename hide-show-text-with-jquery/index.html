@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Ollomedia |  how to hide and show text with jquery  </title>
+    <meta name="description" content="Joshua Ray is a web developer from St. Louis currently residing in Boulder CO.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="HhV5rTmhX1kf5DWeoQx-s3hNmITH4MwwmOzkETbmv0E" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+
+<body>
+  <section class="site-header">
+    <header class="masthead">
+      <h1 class="title"><a href="/">Ollomedia</a></h1>
+      <div class="social">
+        <a href="https://twitter.com/ollomedia" title="twitter" target="_blank">{ T<span>witter</span> }</a>
+        <a href="https://github.com/Ollo" title="github" target="_blank">{ G<span>ithub</span> }</a>
+        <a href="https://www.linkedin.com/in/ollomedia" title="linkedin" target="_blank">{ L<span>inkedIn</span> }</a>
+      </div>
+    </header>
+  </section>
+  <main>
+    
+  <section class="posts wrapper">
+    
+    <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/hide-show-text-with-jquery/">how to hide and show text with jquery</a></h3>
+    <p class="light post_date">May 27, 2011</p>
+  </header>
+
+  <div class="post_content">
+    <p>Developing online stores while attempting to optimize for conversion is a breeding ground for invention and progression. One issue several store owners are guilty of is over loading their shopping cart with walls of text regarding policies, shipping rules, and (hopefully) clear contact information. While this is all relevant information, visual appeal is the key to converting visitors into customers. One solution I have developed is a simple ‘show/hide’ script written in jQuery that provides a header sentence that is hidden until clicked upon expanding your policy information. Use this to clean up your latest shopping cart enhancements and enjoy the benefit of reduced cart abandonment.</p>
+<pre><code>&lt;style type=&quot;text/css&quot;&gt;
+.msg_wrap {
+  margin: 2em;
+}
+.msg_body {
+  display: none;
+  padding: 1em 0;
+}
+&lt;/style&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+$(document).ready(function() {
+    $(&#39;.msg_toggle&#39;).click(function(e) {
+        e.preventDefault();
+        $(this).next(&#39;.msg_body&#39;).slideToggle();
+    });
+});
+&lt;/script&gt;
+
+&lt;div class=&quot;msg_wrap&quot;&gt;
+  &lt;a href=&quot;#&quot; class=&quot;msg_toggle&quot;&gt; (click to read more) &lt;/a&gt;
+  &lt;div class=&quot;msg_body&quot;&gt;
+      I&#39;m text that is hidden until the header is is clicked.
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p>I myself use this implementation frequently if information is needed in the cart but space is limited. A word of caution; do not to let this idea enable over saturation of content and information. Customers want the basic information and quick shout-outs on topics like returns, warranties, and contact information. Links to these pages such as Policy and Shipping can give your customers the choice of reading your agreements or ignoring them to keep checking out. You do not want to freak a customer out by providing a ridiculous amount of information and policy that may in turn cause them to shop elsewhere like Amazon or Overstock. Just my two cents here, but this has been a proven tactic to help drive sales for store owners.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/web-development/" class="tag tag-1">web development</a>
+    
+      <a href="/tags/jquery/" class="tag tag-2">jquery</a>
+    
+    </div>
+  
+
+</article>
+
+  </section>
+
+  <footer class="author">
+    <figure class="bio wrapper">
+      <img class="bio_avatar" src="/images/profile16.jpeg" />
+      <figcaption class="bio_content">
+        <h4>Thanks for reading...</h4>
+        <p>I'm Joshua a front end developer from Boulder, CO that's smitten with sass and javascript and hates comic sans. When I'm not building web applications for startups I enjoy snowboarding, hiking, micro brews and playing video games.</p>
+        <p>Have thoughts on this article?
+          <a href="https://twitter.com/share" class="twitter-share-button" data-via="ollomedia" data-related="ollomedia">Tweet</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+          </script>
+        </p>
+      </figcaption>
+    </figure>
+  </footer>
+
+
+  </main>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-6384815-4', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

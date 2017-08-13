@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Ollomedia |  Tales from the Front End by Joshua Ray  </title>
+    <meta name="description" content="Joshua Ray is a web developer from St. Louis currently residing in Boulder CO.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="HhV5rTmhX1kf5DWeoQx-s3hNmITH4MwwmOzkETbmv0E" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+
+<body>
+  <section class="site-header">
+    <header class="masthead">
+      <h1 class="title"><a href="/">Ollomedia</a></h1>
+      <div class="social">
+        <a href="https://twitter.com/ollomedia" title="twitter" target="_blank">{ T<span>witter</span> }</a>
+        <a href="https://github.com/Ollo" title="github" target="_blank">{ G<span>ithub</span> }</a>
+        <a href="https://www.linkedin.com/in/ollomedia" title="linkedin" target="_blank">{ L<span>inkedIn</span> }</a>
+      </div>
+    </header>
+  </section>
+  <main>
+    
+  <section class="posts wrapper">
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/Learning-to-let-go-of-CSS-control/">Learning to let go of CSS control</a></h3>
+    <p class="light post_date">Aug 13, 2017</p>
+  </header>
+
+  <div class="post_content">
+    <p>Now that I’ve embraced React and Redux as my javascript framework of choice and have been building with it full time on the last few projects and interesting shift in the way I view CSS has begun.</p>
+<p>Previously I would use a pretty minimal set of partials to bootstrap the styles of an application and I would grow that structure as new features were added on and new variables or mix-ins were required. With React I’m now seeing the vision of a component based architecture realized and this more global approach to styles feels like more of an anti-pattern. Through architecting these component based systems I’m still finding there are uses for some degree of global scope for things like grids for layout so to leverage the best of both worlds I’ve found CSS modules to provide a nice balance.</p>
+<p>To demonstrate here is how my typical component structure is setup.</p>
+<pre><code>/Button
+  /Button.js
+  /index.js
+  /Button.scss
+</code></pre><p>Now typically I would pull in partials in the scss file and attempt to style for all of the permutations that I want to use my button for.</p>
+<p><strong>Button.scss</strong></p>
+<pre><code>@import &#39;_button.scss&#39;
+
+.Button {
+  color: $btn-primary-color;
+  background: $btn-primary-bg-color;
+  ...
+}
+
+.Button--secondary {
+  ...
+}
+</code></pre><p>This worked fairly well for a time but I found that there we lots of instances where I needed to override the default styles to work with a specific composition like in a modal footer or as part of a form. So I would stack a new class onto the component in more of a BEM approach using the <code>getClassNames</code> utility I shared in a previous post</p>
+<p><strong>Button.js</strong></p>
+<pre><code>function getClasses (parentClasses) {
+  const componentClasses = [
+    &#39;Button&#39;
+  ]
+  if (parentClasses) {
+    componentClasses.push(parentClasses)
+  }
+  return componentClasses.join(&#39; &#39;)
+}
+
+
+&lt;Button className={ getClasses(&#39;Sign-Up__footer-button&#39;) } /&gt;
+</code></pre><p>This worked well for a time but I found that I was writing a lot more CSS to cover the specific instances where I needed a set of minor tweaks for a composition than I should need but I didn’t want to create a big list of modifiers as that wouldn’t be maintainable. This approach also felt wrong as the majority of these styles weren’t re-usable which defeats the enhancements that originally brought me into preprocessors.</p>
+<p>Another challenge was that now that I work in a dedicated javascript development role I collaborate with designers that manage the bulk of our CSS across projects so maintaining my own set of partials isn’t really feasible as the baselines need to be strictly versioned outside of my project.</p>
+<p>To solve these challenges my team and I decided to adopt CSS modules. By using composition we are now able to maintain a large set of finely tuned variables and mix-ins in a separate project managed as an npm package without designers needing to be up to their eyeballs in React and I can focus on component design without risk of straying from our design standards. To demonstrate here is how I would build the button component. </p>
+<p><strong>Button.scss</strong></p>
+<pre><code>.Button {
+  composes: Button from &#39;~/teamsnap-ui/src/_button.scss&#39;;
+}
+</code></pre><p><strong>Button.js</strong></p>
+<pre><code>import styles from &#39;./Button.scss&#39;
+
+&lt;Button className={ styles.Button } /&gt;
+</code></pre><p>There are still plenty of challenges to solve for such as how to theme a component for re-use across projects but I’m finding this outsourcing of the primary styles is working really well. I also get the benefit of collision projection BEM provides automatically due to the way these CSS module composed styles are converted into classes via javascript <code>.Form-Button__as34sdf</code>. </p>
+<p>I’ve found there are still a few use cases for more global CSS such as grid classes you want to just apply to a component but I’m confident that with time we can find elegant solutions to maintain those as components as well. I hope this helps you find new ways to leverage component architecture and if you have any feedback or suggestions be sure to hit me up on Twitter. Happy Coding.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/css/" class="tag tag-1">css</a>
+    
+      <a href="/tags/architecture/" class="tag tag-2">architecture</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/document-driven-css/">document driven css</a></h3>
+    <p class="light post_date">May 20, 2016</p>
+  </header>
+
+  <div class="post_content">
+    <p>As I’ve worked with several different teams over the years I’ve found documentation to be a bit of a hot button topic. Some feel over documentation is the only way to professionally deliver work and some prefer to simply write “self-documenting” code. I’ve sat through multiple debates and have been part to many a code review where these two mindsets have caused quite a stir.</p>
+<h4 id="Premise"><a href="#Premise" class="headerlink" title="Premise"></a>Premise</h4><p>On a recent fairly large application build I decided to test some theories around documentation with Sass. I wanted to attempt a documentation driven approach which I define as:</p>
+<blockquote>
+<p>All code that is intended for re-use or extensibility within a library or project should have documentation written up-front or in parallel instead of it being added after the fact.</p>
+</blockquote>
+<p>This may at first just appear to be a pedantic argument, but I wanted to research and possibly prove a couple of hypotheses through this approach.</p>
+<p>1.) The project at the end wouldn’t lack documentation like so many other great projects do and if the documentation efforts had fallen behind it would be less effort to back fill.</p>
+<p>2.) Code quality would increase as there was more thought put into the solution at the time of authorship.</p>
+<p>In my opinion CSS is a fairly simple language with a long history of hacks. I find its very easy and far to common to just write more code rather than think through problems up front and write well thought out modular solutions. Also documentation as a practice is pretty rare in CSS as a whole unless you are viewing the source for a popular public framework or library.</p>
+<h4 id="Risks"><a href="#Risks" class="headerlink" title="Risks"></a>Risks</h4><p>Alongside these hopeful outcomes I also theorized a couple potential side-effects of taking this approach.</p>
+<p>1.) Developers velocity would decrease as more thought would be needed during authoring and this might disrupt a typical workflow.</p>
+<p>2.) Code bloat. I wondered if writing docs upfront would influence a developer into thinking every line of CSS has to be modular and re-usable.</p>
+<p>I feel these risks have to be weighted differently depending on the project. In my test case above, we had plenty of runway to work through some early prototypes and think of systems to use in our css. These fairly complex systems necessitated a comprehensive set of accompanying documentation that other engineers could ingest for feature development. If I had a smaller site or project I doubt I would take such a stern approach to being document driven.</p>
+<h4 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h4><p><a href="http://warpspire.com/kss/" target="_blank" rel="external">KSS</a> is the tool I decided to use for documentation. It had some notable use cases and pretty decent documentation even if it only provided ruby references. I also utilized a <a href="https://www.npmjs.com/package/gulp-kss" target="_blank" rel="external">gulp plugin</a> to automate this step into our existing build pipeline. We also created our own theme for our documentation and incorporated angular and google material as both of those libraries are used in the project and they were needed as dependencies in order to properly represent our apps components.</p>
+<h4 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h4><p>If I told you this experiment went off without a hitch I would be lying. We did end up having a much larger and more comprehensive set of documentation, but when deadlines loomed we loosened our convictions to maintain them. We ended up having to backfill documentation and do several rounds of refactoring to get our Sass components and docs up to date after major deadline pushes with new feature development. The documentation did however prove to be a useful resource to more team members that were more focused on data and application development with less focus on UI. Overall I feel that for this strategy to be successful it needs to be established as a core principle for each team and there really needs to be buy in from the whole team to ensure success.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/css/" class="tag tag-1">css</a>
+    
+      <a href="/tags/architecture/" class="tag tag-2">architecture</a>
+    
+      <a href="/tags/web-development/" class="tag tag-3">web development</a>
+    
+    </div>
+  
+
+</article>
+
+    
+
+    <nav class="pagination">
+  
+  
+</nav>
+
+  </section>
+
+  </main>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-6384815-4', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

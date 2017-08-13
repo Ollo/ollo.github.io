@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Ollomedia |  Tales from the Front End by Joshua Ray  </title>
+    <meta name="description" content="Joshua Ray is a web developer from St. Louis currently residing in Boulder CO.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="HhV5rTmhX1kf5DWeoQx-s3hNmITH4MwwmOzkETbmv0E" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+
+<body>
+  <section class="site-header">
+    <header class="masthead">
+      <h1 class="title"><a href="/">Ollomedia</a></h1>
+      <div class="social">
+        <a href="https://twitter.com/ollomedia" title="twitter" target="_blank">{ T<span>witter</span> }</a>
+        <a href="https://github.com/Ollo" title="github" target="_blank">{ G<span>ithub</span> }</a>
+        <a href="https://www.linkedin.com/in/ollomedia" title="linkedin" target="_blank">{ L<span>inkedIn</span> }</a>
+      </div>
+    </header>
+  </section>
+  <main>
+    
+  <section class="posts wrapper">
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/keeping-react-component-styles-manageable-with-bem/">keeping react component styles manageable with bem</a></h3>
+    <p class="light post_date">Nov 13, 2016</p>
+  </header>
+
+  <div class="post_content">
+    <p>After a few months of working on a new project and getting comfortable transitioning to React from Angular<br>I’ve been turned on to a new strategy for managing component based css. Our team found that using BEM really<br>helps keep component styles small and manageable while also easy to debug. Below is a high level example of this approach that would require a bundler like webpack and babel to handle the es6 transpilation but could be re-written with es5 syntax as well if one desired.</p>
+<p>I had reviewed BEM a few years back while researching large scale css strategies but hadn’t fully adopted it as it initially felt a bit too verbose for my liking and at that point I was still writing the majority of my styles in more of a monolithic cascade approach. Now with a simple bit of javascript utility I’ve found I can maintain tightly scoped modular styles for each component but also leverage a bit of classic cascade with some minimal partials.</p>
+<p>First here is a simple component to demonstrate.</p>
+<pre><code class="javascript">import React, { Component, PropTypes } from &#39;react&#39;
+
+export default class ArticleCard extends Component {
+
+  render () {
+
+    const { article } = this.props
+
+    return {
+      &lt;article&gt;
+        &lt;figure&gt;
+          &lt;img src=&quot;{ article.img }&quot; /&gt;
+          &lt;figcaption&gt;
+            &lt;h3&gt;{ article.title }&lt;/h3&gt;
+            &lt;span&gt;{ article.published_date }&lt;/span&gt;
+          &lt;/figcaption&gt;
+        &lt;/figure&gt;
+        &lt;div&gt;
+          { article.content }
+        &lt;/div&gt;
+      &lt;/article&gt;
+    }
+  }
+}
+
+ArticleCard.propTypes = {
+  article: PropTypes.object.isRequired
+}
+</code></pre>
+<p>Now in this current state the component is modular and not tainted with styles from its specific implementation.<br>For instance if you want to use this article card on a magazine layout styled homepage and in a sidebar feature of an article detail how can you keep from repeating yourself while still being able to add some context<br>from each instance where the component is used? Our team uses a simple function for css class management.</p>
+<pre><code class="javascript">function getClasses (parentClasses) {
+  const componentClasses = [
+    &#39;article&#39;
+  ]
+  if (parentClasses) {
+    componentClasses.push(parentClasses)
+  }
+  return componentClasses.join(&#39; &#39;)
+}
+</code></pre>
+<p>With this small utility function we can dynamically pass in context so lets add it to the component and implement some BEM classes to provide a surface area for some basic styles.</p>
+<pre><code class="javascript">import React, { Component, PropTypes } from &#39;react&#39;
+import &#39;./_ArticleCard.scss&#39;
+
+function getClasses (parentClasses) {
+  const componentClasses = [
+    &#39;article&#39;
+  ]
+  if (parentClasses) {
+    componentClasses.push(parentClasses)
+  }
+  return componentClasses.join(&#39; &#39;)
+}
+
+export default class ArticleCard extends Component {
+
+  render () {
+
+    const { article, articleClasses } = this.props
+
+    return {
+      &lt;article className={ getClasses(props.articleClasses) }&gt;
+        &lt;figure className=&#39;article__card&#39;&gt;
+          &lt;img src=&quot;{ article.img }&quot; className=&#39;article__card-image&#39;/&gt;
+          &lt;figcaption className=&#39;article__card-caption&#39;&gt;
+            &lt;h3 className=&#39;article__card-title&#39;&gt;{ article.title }&lt;/h3&gt;
+            &lt;span className=&#39;article__card-date&#39;&gt;{ article.published_date }&lt;/span&gt;
+          &lt;/figcaption&gt;
+        &lt;/figure&gt;
+        &lt;div className=&#39;article__card-content&#39;&gt;
+          { article.content }
+        &lt;/div&gt;
+      &lt;/article&gt;
+    }
+  }
+}
+
+ArticleCard.propTypes = {
+  article: PropTypes.object.isRequired,
+  articleClasses: PropTypes.array
+}
+</code></pre>
+<p>Now with some BEM class names nesting in sass makes the verbosity far less cumbersome but also enforces the scoping we need for a truly reusable component.</p>
+<pre><code class="css">
+/* _ArticleCard.scss */
+
+.article {
+  &amp;__card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    color: slategray;
+  }
+  &amp;__card-image {
+
+  }
+  &amp;__card-caption {
+
+  }
+  &amp;__card-title {
+    font-size: 3rem;
+  }
+  &amp;__card-date {
+    font-size: 1.6rem;
+  }
+  &amp;__card-content {
+
+  }
+}
+</code></pre>
+<p>Now each parent component that is using this Card component can also pass in a css class to provide some top level styles based on its context.</p>
+<pre><code class="javascript">
+import ArticleCard from &#39;your/project/path/ArticleCard&#39;
+
+function ArticlePage(props) {
+  return (
+    &lt;Page&gt;
+      &lt;ArticleCard
+        article={ articleData }
+        articleClasses={ [&#39;article-page&#39;] } /&gt;
+    &lt;/Page&gt;
+  )
+}
+</code></pre>
+<p>This pattern really helped me to start thinking more creatively about re-usable styles but more through the lens of components rather than a styles that cascade through global partials and mixins. Hopefully you too find it useful.</p>
+<p>Cheers.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/sass/" class="tag tag-1">sass</a>
+    
+      <a href="/tags/react/" class="tag tag-2">react</a>
+    
+      <a href="/tags/javascript/" class="tag tag-3">javascript</a>
+    
+    </div>
+  
+
+</article>
+
+    
+
+    <nav class="pagination">
+  
+  
+</nav>
+
+  </section>
+
+  </main>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-6384815-4', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

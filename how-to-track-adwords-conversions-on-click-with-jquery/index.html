@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Ollomedia |  How to track adwords conversions on click with Jquery  </title>
+    <meta name="description" content="Joshua Ray is a web developer from St. Louis currently residing in Boulder CO.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="HhV5rTmhX1kf5DWeoQx-s3hNmITH4MwwmOzkETbmv0E" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+
+<body>
+  <section class="site-header">
+    <header class="masthead">
+      <h1 class="title"><a href="/">Ollomedia</a></h1>
+      <div class="social">
+        <a href="https://twitter.com/ollomedia" title="twitter" target="_blank">{ T<span>witter</span> }</a>
+        <a href="https://github.com/Ollo" title="github" target="_blank">{ G<span>ithub</span> }</a>
+        <a href="https://www.linkedin.com/in/ollomedia" title="linkedin" target="_blank">{ L<span>inkedIn</span> }</a>
+      </div>
+    </header>
+  </section>
+  <main>
+    
+  <section class="posts wrapper">
+    
+    <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/how-to-track-adwords-conversions-on-click-with-jquery/">How to track adwords conversions on click with Jquery</a></h3>
+    <p class="light post_date">Aug 29, 2012</p>
+  </header>
+
+  <div class="post_content">
+    <p>A challenge I’ve found with conversion tracking is that it requires a user to visit a specific page with conversion tracking code installed in order to register as a conversion ie a landing page. This doesn’t always work and makes it difficult to track different forms of conversion such as clicks to third party sites. When faced with this scenario for a client I had to find a solution to track a conversion based on click from an ad. Below is the method and code used to do this using jquery , Google adwords and some html.</p>
+<p>First create an html file with your campaigns conversion tracking code from google adwords and add it to your site files.</p>
+<pre><code>&lt;html&gt;
+&lt;body&gt;
+    &lt;!-- Google Code for Conversion Page --&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+    /* &lt;![CDATA[ */
+    var google_conversion_id = xxxxxxxxx;
+    var google_conversion_language = &quot;en&quot;;
+    var google_conversion_format = &quot;3&quot;;
+    var google_conversion_color = &quot;ffffff&quot;;
+    var google_conversion_label = &quot;_ArfCLPt9QMQrcfZ2AM&quot;;
+    var google_conversion_value = 0;
+    /* ]]&gt; */
+    &lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;http://www.googleadservices.com/pagead/conversion.js&quot;&gt;
+    &lt;/script&gt;
+    &lt;noscript&gt;
+    &lt;div style=&quot;display:inline;&quot;&gt;
+    &lt;img height=&quot;1&quot; width=&quot;1&quot; style=&quot;border-style:none;&quot; alt=&quot;&quot; src=&quot;http://www.googleadservices.com/pagead/conversion/xxxxxxxxx/?label=_ArfCLPt9QMQrcfZ2AM&amp;amp;amp;guid=ON&amp;amp;amp;script=0&quot;/&gt;
+    &lt;/div&gt;
+    &lt;/noscript&gt;
+
+    &lt;script type=&quot;text/javascript&quot;&gt;
+
+      var _gaq = _gaq || [];
+      _gaq.push([&#39;_setAccount&#39;, &#39;UA-xxxxxxxx-1&#39;]);
+      _gaq.push([&#39;_setDomainName&#39;, &#39;yourdomain.com&#39;]);
+      _gaq.push([&#39;_trackPageview&#39;]);
+
+      (function() {
+        var ga = document.createElement(&#39;script&#39;); ga.type = &#39;text/javascript&#39;; ga.async = true;
+        ga.src = (&#39;https:&#39; == document.location.protocol ? &#39;https://ssl&#39; : &#39;http://www&#39;) + &#39;.google-analytics.com/ga.js&#39;;
+        var s = document.getElementsByTagName(&#39;script&#39;)[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>Next add a class to the links or elements you want to track as conversions via click. I added</p>
+<p><code>.clickAction</code> to various buttons and links around the page. Now to create the action add the code below to your header or external js file inside of your document ready function. This script requires <a href="http://jquery.com" target="_blank" rel="external">Jquery</a> So you will need to have that also installed on your site.<br><strong>note: I wrote this for a WordPress site so update the url path to the html file based on your configuration </strong></p>
+<pre><code>$(&#39;.clickAction&#39;).click(function(){
+
+  $(&#39;&lt;iframe id=&quot;converter&quot; height=&quot;1&quot; width=&quot;1&quot; name=&quot;converter&quot;&gt;&#39;).attr(&#39;src&#39;, &lt;?php bloginfo(&#39;template_url&#39;); ?&gt;/tracking.html&#39;).appendTo(&#39;body&#39;);
+
+});
+</code></pre><p>Now any item with the class <code>.clickAction</code> when clicked with load a 1px by 1px transparent iframe at the bottom of the page and register as a conversion. This approach is pretty simple so feel free to reach out if you have questions. Happy analyzing.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/business/" class="tag tag-1">business</a>
+    
+      <a href="/tags/jquery/" class="tag tag-2">jquery</a>
+    
+      <a href="/tags/google-analytics/" class="tag tag-3">google analytics</a>
+    
+    </div>
+  
+
+</article>
+
+  </section>
+
+  <footer class="author">
+    <figure class="bio wrapper">
+      <img class="bio_avatar" src="/images/profile16.jpeg" />
+      <figcaption class="bio_content">
+        <h4>Thanks for reading...</h4>
+        <p>I'm Joshua a front end developer from Boulder, CO that's smitten with sass and javascript and hates comic sans. When I'm not building web applications for startups I enjoy snowboarding, hiking, micro brews and playing video games.</p>
+        <p>Have thoughts on this article?
+          <a href="https://twitter.com/share" class="twitter-share-button" data-via="ollomedia" data-related="ollomedia">Tweet</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+          </script>
+        </p>
+      </figcaption>
+    </figure>
+  </footer>
+
+
+  </main>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-6384815-4', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

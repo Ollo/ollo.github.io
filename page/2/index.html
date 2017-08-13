@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Ollomedia |  Tales from the Front End by Joshua Ray  </title>
+    <meta name="description" content="Joshua Ray is a web developer from St. Louis currently residing in Boulder CO.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="HhV5rTmhX1kf5DWeoQx-s3hNmITH4MwwmOzkETbmv0E" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+
+<body>
+  <section class="site-header">
+    <header class="masthead">
+      <h1 class="title"><a href="/">Ollomedia</a></h1>
+      <div class="social">
+        <a href="https://twitter.com/ollomedia" title="twitter" target="_blank">{ T<span>witter</span> }</a>
+        <a href="https://github.com/Ollo" title="github" target="_blank">{ G<span>ithub</span> }</a>
+        <a href="https://www.linkedin.com/in/ollomedia" title="linkedin" target="_blank">{ L<span>inkedIn</span> }</a>
+      </div>
+    </header>
+  </section>
+  <main>
+    
+  <section class="posts wrapper">
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/using-twitter-bootstrap-the-right-way/">Using Twitter Bootstrap the right way</a></h3>
+    <p class="light post_date">Oct 12, 2012</p>
+  </header>
+
+  <div class="post_content">
+    <p>So if you haven’t jumped into bootstrap to speed up front end development or at least explored it you need to, and hopefully this writeup taken from some of my successes and failures will help jumpstart you into using it effectively as<br>a front end scaffold.</p>
+<h3 id="First-we-need-to-understand-that-Bootstrap-is-a-framework"><a href="#First-we-need-to-understand-that-Bootstrap-is-a-framework" class="headerlink" title="First we need to understand that Bootstrap is a framework.."></a>First we need to understand that Bootstrap is a framework..</h3><p>One of my first mistakes was in not really understanding what this means and customizing its core directly. This mistake has caused numerous problems like being stuck with an older version and working way harder to override its css output :(</p>
+<p>After the first couple of projects I found that the only way to use it effectively is to build off of it and not customize its core files directly. This concept is similar to other platforms and libraries I use { jQuery or WordPress } but it didn’t occur to me immediately since it was a front end framework and the early documentation guided users to work off of the variables to customize it. This caused me plenty of problems until I found the below approach.</p>
+<h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><h3 id="Download-the-full-source-from-Github-the-LESS-version"><a href="#Download-the-full-source-from-Github-the-LESS-version" class="headerlink" title="Download the full source from Github { the LESS version }"></a>Download the full source from Github { the LESS version }</h3><p><a href="https://github.com/twitter/bootstrap" target="_blank" rel="external">https://github.com/twitter/bootstrap</a> This is the full core of the framework. It will take some learning if your not already using LESS but it shows how the features are truly built. If you haven’t already viewed bootstrap like this take some time and examine the files and learn which features are created through each file, there are quite a few and learning where they are defined will help later when you want to build off of them or over-ride their look and feel.</p>
+<h3 id="Get-the-right-tools"><a href="#Get-the-right-tools" class="headerlink" title="Get the right tools"></a>Get the right tools</h3><p>I use a compiler which took some time to getting used to as a front end guy who’s previous experience with compilers was <a href="http://www.bloodshed.net/devcpp.html" target="_blank" rel="external">Dev C++</a> in an intro CS class. I’ve come to find with a little flexibility in my workflow it speeds things up and can help with debugging as I’m adapting to using LESS instead of just CSS. I currently use <a href="http://incident57.com/codekit/" target="_blank" rel="external">CodeKit</a> which offers some cool js and framework support. It is a paid app so if your just getting started you might want to try some of the free options { <a href="http://incident57.com/less/" target="_blank" rel="external">LESS for Mac</a>, <a href="http://winless.org/" target="_blank" rel="external">WinLess</a> ( ironic ), <a href="http://wearekiss.com/simpless" target="_blank" rel="external">Simpless</a>, or <a href="http://crunchapp.net/" target="_blank" rel="external">Crunch</a>. }</p>
+<h3 id="Set-up-your-development-project"><a href="#Set-up-your-development-project" class="headerlink" title="Set up your development project"></a>Set up your development project</h3><p>Recently at WordCamp here in St. Louis I discussed theme development best practices and one of the concepts I covered was abstraction. The concept holds true in the method I use to work with bootstrap which I find to work really well. I start with a basic project folder for the site name or project I’m working on and create the basic folder structure for the types of files I will be using. I also add a folder called bootstrap to contain the frameworks less files.</p>
+<p>Now I copy over the files from bootstrap that I downloaded from Github into the appropriate directories minus the tests folders that were used in development. Now I have a clean folder structure with some basic assets to start using on my project.</p>
+<h3 id="Getting-started"><a href="#Getting-started" class="headerlink" title="Getting started"></a>Getting started</h3><p>Now that you have a basic site structure lets set up our compiler with some resources and instructions on how to produce our styles. First inside of our less folder lets create some .less files to tell the compiler what we are working with. I start with a</p>
+<ul>
+<li><code>style.less</code> { the master file },</li>
+<li><code>layout.less</code> { general layout },</li>
+<li><code>theme.less</code> { colors, buttons, etc }</li>
+<li><code>typography.less</code> { for headings and type faces }</li>
+<li><code>misc.less</code> for mixins and utility classes.</li>
+</ul>
+<p>Once these files are created open your <code>style.less</code> file and add the following lines.</p>
+<pre><code>/* my new bootstrap site */
+
+@import &quot;../bootstrap/bootstrap.less&quot;;
+@import &quot;../bootstrap/responsive.less&quot;;
+
+// import your unique less files as you build
+
+@import &quot;layout.less&quot;;
+@import &quot;theme.less&quot;;
+@import &quot;typography.less&quot;;
+@import &quot;misc.less&quot;  // mixins etc
+</code></pre><p>Once you have created these files and this structure you can open your compiler of choice and add your new project. In CodeKit you simply click the (+) plus sign and browse for your site folder. Once you have chosen this lets modify the compiler behavior.</p>
+<p>Basically we want to make sure it is detecting the import statements and that it is only compiling the single style.less file. Also if it doesn’t automatically set the output path for the compiled css you will want to right click and tell it to use /css/style.css. Now we can get started on building our new site with less and the power of bootstrap so if your not already confused read on.</p>
+<h3 id="File-Strategy"><a href="#File-Strategy" class="headerlink" title="File Strategy"></a>File Strategy</h3><p>I mentioned before that one of the key things I’ve learned as a developer is abstraction. This concept is constantly at the back of my mind when I’m working on a project because I find its the best way to build readable clean code that someone else may have to work on down the road after I’m finished working on a project. When I set up my less folder with those basic files in the previous step its just a starting point. As I get further into a site I will create several more less files and import them into the style.less file so they are compiled into the final css. This maintains clean easy pieces in my code that are easy to digest.</p>
+<p>I also heavily comment using less comments <code>//</code> as they don’t end up in the css and are a courteous way to document my train of thought as I’m working on a layout.</p>
+<blockquote>
+<p><strong><em>The key thing is to not be afraid of files.</em></strong></p>
+</blockquote>
+<p>With this method and less they are compiled into one css file so your not adding a bunch of extra http calls and damaging your sites load time by keeping everything broken out and readable. You can even take optimization a step further when your ready to put your site into production and only import the bootstrap files that actually pertain to your design.</p>
+<p><strong><em>Wait.. what ?</em></strong></p>
+<p>Yes. If you open the bootstrap.less file from the framework you’ll see they are doing the same thing with import statements so you can lower the end size of your css file by only pulling what you need!</p>
+<h3 id="Closing"><a href="#Closing" class="headerlink" title="Closing"></a>Closing</h3><p>This has taken a couple of months for me to refine and get comfortable with but now I’m finally starting to see the benefits as I work with a team of developers on larger projects. This organization lets us minimize development time and makes our code easier to understand without lots of instruction and I hope it helps you on your development projects in the future. If you see improvements that can be made I’d love to hear your feedback or findings while you experiment.</p>
+<p>Happy coding.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/css/" class="tag tag-1">css</a>
+    
+      <a href="/tags/web-development/" class="tag tag-2">web development</a>
+    
+      <a href="/tags/less/" class="tag tag-3">less</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/wordpress-development-tools/">WordPress development tools</a></h3>
+    <p class="light post_date">Sep 26, 2012</p>
+  </header>
+
+  <div class="post_content">
+    <p>So I just launched my new WordPress theme. This was more playing catch up than a marketing tactic. I have been working with WordPress for almost five years now but have been so busy with client work and freelance projects that I had left my site to rot.</p>
+<p>I regrettably was using a theme I tweaked from twenty ten which was clean but didn’t really capture my style or current WordPress theming capabilities. I also have until recently gotten way behind in my writing activities so rebuilding is a good way for me to get involved in my site and the fun in having a WordPress site.</p>
+<p>The latest theme is built from scratch using twitter bootstrap and some tweaks I have learned along the way. There is still plenty of things I want to polish on the theme, but I think some of these initial development discoveries deserve consideration if you are building your own WordPress themes.</p>
+<h3 id="Tools-I’ve-recently-adopted"><a href="#Tools-I’ve-recently-adopted" class="headerlink" title="Tools I’ve recently adopted"></a>Tools I’ve recently adopted</h3><p>Beyond my standard tools { textmate, terminal and a browser } I started working with a couple of new tools in my development workflow.</p>
+<h4 id="The-Less-App-for-Mac"><a href="#The-Less-App-for-Mac" class="headerlink" title="The Less App for Mac"></a><a href="http://incident57.com/less/" target="_blank" rel="external">The Less App for Mac</a></h4><p>This is a simple app but when handling several less files from a framework like bootstrap it takes a lot out of the guesswork and helps get a solid workflow. Some <a href="http://lesscss.org" target="_blank" rel="external">less knowledge</a> is needed but after this theme and several of the latest ones at work I’ve found this language speeds up css development considerably and is well worth the effort to explore.</p>
+<p>The developer also has another project some of my co-workers and I are testing right now called code-kit which also looks very promising</p>
+<h4 id="Twitter-Bootstrap"><a href="#Twitter-Bootstrap" class="headerlink" title="Twitter Bootstrap"></a><a href="http://twitter.github.com/bootstrap" target="_blank" rel="external">Twitter Bootstrap</a></h4><p>Yes… I know lots of very important well known developers have already talked about this framework. I admittedly have been looking it over for a year and just now am really learning how to use it to speed up my projects and simplify my development workflow.</p>
+<p>If you haven’t reviewed this yet, I can’t recommend it enough and I hope to have many more posts in the future discussing techniques to customize it and use it for project specific functionality.</p>
+<h4 id="Github"><a href="#Github" class="headerlink" title="Github"></a><a href="http://github.com" target="_blank" rel="external">Github</a></h4><p>Yes I know this is old news. Yes I know you are probably way cooler and nerdier than me and have been using this for years. I first learned about github and WordCamp two years ago and now finally understand why it is so important. At Integrity we now use git daily to manage all of our development projects. This is an amazing tool and when working in a team setting it makes collaboration more efficient. The secret to using this in my opinion is branching and I plan to write another post soon on my git workflow for WordPress theming.</p>
+<h4 id="Search-Wordpress-org-Codex"><a href="#Search-Wordpress-org-Codex" class="headerlink" title="Search Wordpress.org Codex"></a><a href="https://chrome.google.com/webstore/detail/bbiamkpoidpgblfebchjfldmiomhafcg" target="_blank" rel="external">Search Wordpress.org Codex</a></h4><p>Lastly I use an awesome but simple <a href="https://chrome.google.com/webstore/detail/bbiamkpoidpgblfebchjfldmiomhafcg" target="_blank" rel="external">chrome extension</a> that I use constantly for instant access to the <a href="http://codex.wordpress.org/" target="_blank" rel="external">WordPress Codex</a>. When I learned PHP the first think I learned was how to search php.net for functions and documentation so that approach has guided all that I have researched and learned about developing with WordPress. This extension allows me to just open a tab and type “wp” + space + “function, term, or keyword” and immediately jump to the source for documentation. I recommend this <a href="https://chrome.google.com/webstore/detail/bbiamkpoidpgblfebchjfldmiomhafcg" target="_blank" rel="external"> extension</a> to all of our new developers and hope you too can find it useful.</p>
+<p>If you’ve used one of these tools and think their awesome or think they are sub par to a solution you have found let me know via a comment. I’ll be writing again soon time permitting on some of the workflows I’ve developed with these tools and any new finds. Thanks for reading.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/web-development/" class="tag tag-1">web development</a>
+    
+      <a href="/tags/WordPress/" class="tag tag-2">WordPress</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/speaking-at-wordcamp/">Speaking at WordCamp</a></h3>
+    <p class="light post_date">Sep 17, 2012</p>
+  </header>
+
+  <div class="post_content">
+    <p>So thanks to my awesome boss Ed @ <a href="http://integritystl.com" target="_blank" rel="external">Integrity</a> I was recommended, and will be giving a chat with my rad comrade Arod this year at WordCamp in St. Louis.</p>
+<p>We’re planning a chat for developers that focuses on how to architect a really awesome WordPress theme. Our focus is on how using custom post types, custom meta boxes, and admin customizations can make WordPress a true CMS and easy for clients to learn.</p>
+<p>I’m posting the slides on a new service I found created by the guys at <a href="http://github.com" target="_blank" rel="external">Github</a> called <a href="http://speakerdeck.com" target="_blank" rel="external">Speaker Deck</a>. I like the so far and its simple. It creates your presentation in by uploading a pdf, this makes prep minimal and I get to avoid powerpoint.</p>
+<p>Arod and I still have plenty of prep to do but we’re super excited. This will be the first year we have presented and my third WordCamp to attend.</p>
+<p>Check back for a follow up post on the details of the event and links to the slides from our chat</p>
+<p><strong>UPDATE</strong></p>
+<p>Arod and I had a great session that was standing room only! We totally enjoyed the experience and had some really encouraging feedback.</p>
+<p>Here are the <a href="https://speakerdeck.com/ollo/wcstl12" target="_blank" rel="external">slides</a> from the presentation for all those interested</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/web-development/" class="tag tag-1">web development</a>
+    
+      <a href="/tags/WordPress/" class="tag tag-2">WordPress</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/how-to-track-adwords-conversions-on-click-with-jquery/">How to track adwords conversions on click with Jquery</a></h3>
+    <p class="light post_date">Aug 29, 2012</p>
+  </header>
+
+  <div class="post_content">
+    <p>A challenge I’ve found with conversion tracking is that it requires a user to visit a specific page with conversion tracking code installed in order to register as a conversion ie a landing page. This doesn’t always work and makes it difficult to track different forms of conversion such as clicks to third party sites. When faced with this scenario for a client I had to find a solution to track a conversion based on click from an ad. Below is the method and code used to do this using jquery , Google adwords and some html.</p>
+<p>First create an html file with your campaigns conversion tracking code from google adwords and add it to your site files.</p>
+<pre><code>&lt;html&gt;
+&lt;body&gt;
+    &lt;!-- Google Code for Conversion Page --&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+    /* &lt;![CDATA[ */
+    var google_conversion_id = xxxxxxxxx;
+    var google_conversion_language = &quot;en&quot;;
+    var google_conversion_format = &quot;3&quot;;
+    var google_conversion_color = &quot;ffffff&quot;;
+    var google_conversion_label = &quot;_ArfCLPt9QMQrcfZ2AM&quot;;
+    var google_conversion_value = 0;
+    /* ]]&gt; */
+    &lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;http://www.googleadservices.com/pagead/conversion.js&quot;&gt;
+    &lt;/script&gt;
+    &lt;noscript&gt;
+    &lt;div style=&quot;display:inline;&quot;&gt;
+    &lt;img height=&quot;1&quot; width=&quot;1&quot; style=&quot;border-style:none;&quot; alt=&quot;&quot; src=&quot;http://www.googleadservices.com/pagead/conversion/xxxxxxxxx/?label=_ArfCLPt9QMQrcfZ2AM&amp;amp;amp;guid=ON&amp;amp;amp;script=0&quot;/&gt;
+    &lt;/div&gt;
+    &lt;/noscript&gt;
+
+    &lt;script type=&quot;text/javascript&quot;&gt;
+
+      var _gaq = _gaq || [];
+      _gaq.push([&#39;_setAccount&#39;, &#39;UA-xxxxxxxx-1&#39;]);
+      _gaq.push([&#39;_setDomainName&#39;, &#39;yourdomain.com&#39;]);
+      _gaq.push([&#39;_trackPageview&#39;]);
+
+      (function() {
+        var ga = document.createElement(&#39;script&#39;); ga.type = &#39;text/javascript&#39;; ga.async = true;
+        ga.src = (&#39;https:&#39; == document.location.protocol ? &#39;https://ssl&#39; : &#39;http://www&#39;) + &#39;.google-analytics.com/ga.js&#39;;
+        var s = document.getElementsByTagName(&#39;script&#39;)[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>Next add a class to the links or elements you want to track as conversions via click. I added</p>
+<p><code>.clickAction</code> to various buttons and links around the page. Now to create the action add the code below to your header or external js file inside of your document ready function. This script requires <a href="http://jquery.com" target="_blank" rel="external">Jquery</a> So you will need to have that also installed on your site.<br><strong>note: I wrote this for a WordPress site so update the url path to the html file based on your configuration </strong></p>
+<pre><code>$(&#39;.clickAction&#39;).click(function(){
+
+  $(&#39;&lt;iframe id=&quot;converter&quot; height=&quot;1&quot; width=&quot;1&quot; name=&quot;converter&quot;&gt;&#39;).attr(&#39;src&#39;, &lt;?php bloginfo(&#39;template_url&#39;); ?&gt;/tracking.html&#39;).appendTo(&#39;body&#39;);
+
+});
+</code></pre><p>Now any item with the class <code>.clickAction</code> when clicked with load a 1px by 1px transparent iframe at the bottom of the page and register as a conversion. This approach is pretty simple so feel free to reach out if you have questions. Happy analyzing.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/business/" class="tag tag-1">business</a>
+    
+      <a href="/tags/jquery/" class="tag tag-2">jquery</a>
+    
+      <a href="/tags/google-analytics/" class="tag tag-3">google analytics</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/wordcamp-portland-wrap-up/">Wordcamp Portland Wrap Up</a></h3>
+    <p class="light post_date">Sep 20, 2011</p>
+  </header>
+
+  <div class="post_content">
+    <p>So this year was my second year to attend <a href="http://central.wordcamp.org/" target="_blank" rel="external">WordCamp</a> in Portland. It’s a great time to meet other developers listen to entertaining as well as educational chats from pro’s as well as fellow enthusiasts. As I pursue more and more development in WordPress these camps are essential to my growth and inspiration as I always learn something new, or how to do something more optimally. Here is a quick re-cap and some resources from the sessions I was able to attend that I hope inspire you to<a href="http://central.wordcamp.org/" target="_blank" rel="external"> find a WordCamp in your area to attend. </a></p>
+<p>The first change with this years conference compared to last years was it was primarily an <a href="http://en.wikipedia.org/wiki/Unconference" target="_blank" rel="external">unconference</a> in format. If your new to this term it is essentially participant driven so other that a few planned main speakers all of the other chats were volunteered or suggested through those attending. At first I was quite apprehensive about this format as last year was very session driven and I had a clear outline of topics I could decide on sitting in on. This new format however panned out to be great due to the fantastic community of WordPressers in the local area which for me made it just as great as last year.</p>
+<p>The first chat I sat in on was Scott Berkun’s chat. He had some cool perspectives on what he does at WordPress.com and what things he’s learned while studying ways to make people post more frequently. It was an inspiring chat that did a great job at reminding me at how bad I suck at regularly posting but contained some cool tips on trying to do better at it { guest post anyone ? :D }</p>
+<p>After the first main session it was time for some unconference planning and the community filled out massive post-its and the organizers laid out a schedule for smaller groups to get together and have organized talks on specific topics.</p>
+<p>The first one was labeled MVC and WordPress but was a bit rough as the speaker asked what MVC stood for and confessed to using the term to get people to come to the chat :( Over all it worked out fine and he had some interesting tips from his experiences in moving to the platform for usability for the end users in his company as well as some pretty cool technical workarounds he came up with in his custom theme. I think this kind of chat is what makes the whole experience cool as it doesn’t have to be someone who is a lead at Automattic to chat and share something interesting, good information and tips can come from any source and that’s why I enjoy WordPress and its community.</p>
+<p>After this I bounced around for a bit but did manage to catch a great chat by the fine gents at <a href="http://9seeds.com" target="_blank" rel="external">9seeds.com</a> regarding plugin development for business. Todd and John are really great to listen to and seem like they would be an awesome company to do business with. I really liked their passion for open source and how they try and release code from projects with clients into the community. I love that model and really aspire to be in that kind of company someday.</p>
+<p>Next came some lunch with great food and tasty Full Sail beer. Always a staple at a WordCamp in Portland and very much enjoyed as we sat and chatted with new friends and old.</p>
+<p>Right after lunch it was time for Andrew Nacin’s chat on “You don’t know query”. Deep barely describes this chat but it was incredible to see one of the brains working full time on the core in person sharing some advanced concepts for the programmers in the room. I definitely was lost at a couple of points but still found this one of the most enjoyable parts of the conference and one of the key reasons I bought a ticket. I’ll still need some time to sort it all out but thankfully the slides are posted <a href="http://www.slideshare.net/andrewnacin/you-dont-know-query-wordcamp-portland-2011" target="_blank" rel="external">here</a>.</p>
+<p>Next I sat in on John from 9seeds chat on child themes but felt I should have gone to the SEO chat instead. John is a great guy and fun to listen too but the crowd in this chat was a bit green on WordPress and I honestly was a bit past the level this presentation was designed for. After attending Aaron Jorbins chat last year and studying child themes and themeing in general over the last year this was just too basic for my needs.</p>
+<p>After this chat I checked out the plugin Q and A session with the Alex Mills { <a href="http://www.viper007bond.com/" target="_blank" rel="external">viper007bond</a> }. It seemed awkward at first as he didn’t have a plan or schedule for the chat but it worked out great as the crowd got into the conversation and the dialog really took off. Alex is a really smart guy which has created quite a prolific array of plugins for the platform. I really enjoyed this chat and it was nice to hear some insight from the creator of some of the plugins I already use and enjoy.</p>
+<p>Overall another great year of WordCamp all due to a fantastic local community of developers, designers and users. I hope to go next year in St. Louis and might even try and build up some nerve to do a chat.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/me/" class="tag tag-1">me</a>
+    
+      <a href="/tags/WordPress/" class="tag tag-2">WordPress</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/hide-show-text-with-jquery/">how to hide and show text with jquery</a></h3>
+    <p class="light post_date">May 27, 2011</p>
+  </header>
+
+  <div class="post_content">
+    <p>Developing online stores while attempting to optimize for conversion is a breeding ground for invention and progression. One issue several store owners are guilty of is over loading their shopping cart with walls of text regarding policies, shipping rules, and (hopefully) clear contact information. While this is all relevant information, visual appeal is the key to converting visitors into customers. One solution I have developed is a simple ‘show/hide’ script written in jQuery that provides a header sentence that is hidden until clicked upon expanding your policy information. Use this to clean up your latest shopping cart enhancements and enjoy the benefit of reduced cart abandonment.</p>
+<pre><code>&lt;style type=&quot;text/css&quot;&gt;
+.msg_wrap {
+  margin: 2em;
+}
+.msg_body {
+  display: none;
+  padding: 1em 0;
+}
+&lt;/style&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+$(document).ready(function() {
+    $(&#39;.msg_toggle&#39;).click(function(e) {
+        e.preventDefault();
+        $(this).next(&#39;.msg_body&#39;).slideToggle();
+    });
+});
+&lt;/script&gt;
+
+&lt;div class=&quot;msg_wrap&quot;&gt;
+  &lt;a href=&quot;#&quot; class=&quot;msg_toggle&quot;&gt; (click to read more) &lt;/a&gt;
+  &lt;div class=&quot;msg_body&quot;&gt;
+      I&#39;m text that is hidden until the header is is clicked.
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><p>I myself use this implementation frequently if information is needed in the cart but space is limited. A word of caution; do not to let this idea enable over saturation of content and information. Customers want the basic information and quick shout-outs on topics like returns, warranties, and contact information. Links to these pages such as Policy and Shipping can give your customers the choice of reading your agreements or ignoring them to keep checking out. You do not want to freak a customer out by providing a ridiculous amount of information and policy that may in turn cause them to shop elsewhere like Amazon or Overstock. Just my two cents here, but this has been a proven tactic to help drive sales for store owners.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/web-development/" class="tag tag-1">web development</a>
+    
+      <a href="/tags/jquery/" class="tag tag-2">jquery</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/simple-page-level-seo-for-ecommerce/">Simple page level SEO for Ecommerce</a></h3>
+    <p class="light post_date">Nov 02, 2010</p>
+  </header>
+
+  <div class="post_content">
+    <p>In today’s competitive e-commerce market there is always buzz about SEO and how companies now “specialize” in getting you to page 1 on Google. This simple guide is a practical DIY method for doing SEO content optimization that doesn’t overwhelm and over complicate or cost a bundle.</p>
+<p>This is designed for the novice and provides a simple guide to consider when creating every page in your site. The results are a solid ranking that when coupled with the right keyword research can attain the rankings and sales all Yahoo! store owners are looking for.</p>
+<a id="more"></a>
+<p>SEO is about having a guide to how you write content on your site and research of what your target market is looking for. True optimization should be built around “<em>providing the best user experience possible</em>“ not only trying to sell something. </p>
+<p>The key to page level SEO is consistency in your content. Analytics seems to scare most online store owners that I speak with as they think it is this mystical software that will provide all the answers to make their business successful. It can be a tool to achieve success, but not unless you know what you are using it to look for.</p>
+<p>“<strong><em>SEO is never done</em></strong>“… Sorry but it is the truth. In order to maintain a strong profitable ranking your content constantly needs to be evaluated and adjusted. Analytics is a tool to find the answers.</p>
+<blockquote>
+<p>What are my customers looking for?</p>
+<p>What keywords are bringing in visitors that buy { convert } ?</p>
+<p>What content on my pages is counter-productive ?</p>
+</blockquote>
+<p>Consistency is imperative. If you know the top keywords for a particular page after studying analytic reports and your competition, yes you should be looking at what they are doing, then lets move into how to put that information into practice.</p>
+<h4 id="1-Page-Title-Title-Tag-lt-title-gt"><a href="#1-Page-Title-Title-Tag-lt-title-gt" class="headerlink" title="1. Page Title / Title Tag  &lt;title&gt;"></a>1. Page Title / Title Tag  <code>&lt;title&gt;</code></h4><p>This is the first element on a page that is evaluated and indexed by the search engine. Adding the name of the product is common and a good start for your keyword strategy. Also consider adding an additional keyword or phrase that is relevant and would be used in a product search to locate the product.  Think of adjectives that describe the product or the brand if it is well known. Analytics is a great place to locate keywords or search terms used in the past to draw in traffic.  I would test adding the keywords that have led to conversion.</p>
+<h4 id="2-The-URL"><a href="#2-The-URL" class="headerlink" title="2. The URL"></a>2. The URL</h4><p>Starting with domain selection we begin to establish relevance. If your domain was allthebestthings.com and you were trying to sell pool supplies that wouldn’t make much sense so choosing a domain that is relevant to the type of product or market you are trying to enter is important. Directly following the domain is the url for the product or page where you are displaying your content. This should contain only the most relevant words for the product you are representing. </p>
+<p>For example :</p>
+<pre><code>http://domain.com/123456.html
+
+    vs.
+
+http://domain.com/product-name-keyword-keyword.html
+</code></pre><p>The second structure points out the terms for the product and 2 additional keywords that should be relevant and used throughout the other page elements. This directly identifies what type of content is on this page and can impact its ranking.</p>
+<h4 id="3-The-first-heading-tag-lt-h1-gt"><a href="#3-The-first-heading-tag-lt-h1-gt" class="headerlink" title="3.) The first heading tag &lt;h1&gt;"></a>3.) The first heading tag <code>&lt;h1&gt;</code></h4><p>In html <code>&lt;h1&gt;</code> is used to indicate the most important heading for the page. This is a perfect opportunity to re-use some of the most relevant keywords for your page and emphasize the same terms pointed out in your page title. You don’t want to go overboard so try and keep this fairly simple but try and associate at least one more keyword than just the item name.</p>
+<h4 id="4-Your-Primary-Content"><a href="#4-Your-Primary-Content" class="headerlink" title="4.) Your Primary Content"></a>4.) Your Primary Content</h4><p>This is the meat of your page. This is where the bulk of your ranking is decided by a search crawler and the perfect place to stand out from your competition.</p>
+<p><strong>Rule #1 : Don’t copy and paste the manufacturer copy!</strong> There are potentially hundreds of other sites or stores talking about products and they are taking the same shortcut of using the manufacturer copy. When a crawler comes across this <em>{ duplicate content }</em> they don’t have anything <strong>unique</strong> about your page to qualify you as different and won’t provide a higher ranking.</p>
+<p>I usually recommend that customers think outside the box on this one and use portions of the manufacturer copy to <strong><em>provide the relevant product information</em></strong> such as sizing and materials used in the product. Then take the product description a step further and use content from customer reviews, comments and feedback, you can also use any press material from the manufacturer or any celebrity sightings using the product.  This content is all fair game and can really strike that final cord with a visitor to trigger conversion.</p>
+<h4 id="5-Page-Description-amp-lt-meta-type-quot-description-quot-content-quot-quot-amp-gt"><a href="#5-Page-Description-amp-lt-meta-type-quot-description-quot-content-quot-quot-amp-gt" class="headerlink" title="5.) Page Description &amp;lt;meta type=&quot;description&quot; content=&quot; ? &quot;&amp;gt;"></a>5.) Page Description <code>&amp;lt;meta type=&quot;description&quot; content=&quot; ? &quot;&amp;gt;</code></h4><p>This tag is a great resource to summarize your caption and point out a small 2-3 sentence blurb that you would like the search engine to use as an excerpt for your page. Again consistency is important here try and keep this short and sweet and loaded with the same keywords you are focusing on throughout the other elements in the page.</p>
+<p>I hope this has been light enough to be helpful but not overwhelming. The process of page level optimization is extremely time consuming and requires some quality research to be successful. To keep from being overwhelmed, <strong>start with your top 5 products</strong>. Optimize these items and monitor the impact. After a bit of testing and monitoring in your analytics you should be able to quickly tell if you are improving.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/business/" class="tag tag-1">business</a>
+    
+      <a href="/tags/content-optimization/" class="tag tag-2">content optimization</a>
+    
+      <a href="/tags/ecommerce/" class="tag tag-3">ecommerce</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/the-perfect-setup-for-web-development-on-linux/">The Perfect Linux Desktop Setup for Web Development</a></h3>
+    <p class="light post_date">Aug 27, 2010</p>
+  </header>
+
+  <div class="post_content">
+    <p>As a fellow open source enthusiast and web developer, <a href="http://ollomedia.com/author/administrator/">Josh</a> has been kind enough to invite me to guest post on one of my favorite topics: Linux-based web development. I specialize in the development end and less on design, so bear that in mind, though I’ll also introduce some graphic design tools as well. While the linux platform still lacks a native port for Adobe CreativeSuite, to the chagrine of Linux-loving web developers everywhere,  there are still plenty of stunningly useful tools for web developers working on Linux. Before  I get to a summary of my favorite of these tools though, I’d like to take a second to talk about the importance of open source in the web industry.</p>
+<a id="more"></a>
+<p>As web developers, we benefit immensely from the richness of the open source community, from the profligate offerings for code libraries for front-end development (YUI, MooTools, jQuery),  the scripting languages we love (PHP, JavaScript, Python, HTML, XHTML), the very platform that powers most of our servers (Linux, Unix, BSD), to the servers that offer up our creations for consumption (Apache, Nginx, Lighttpd, Tomcat).</p>
+<p>Without the generous contribution of labor and creative product by the multitude of developers working on this great software, the modern web might have a very different face; it’s very difficult to imagine that without the multitude of freely available solutions, the web would be as accessible as it is today.</p>
+<p>My heartfelt thanks goes out to the people who make this possible, including the corporations that stand behind open source, putting their money where their mouths  are in paying for open source developers and defending open source licensing in the courts. With that said, let’s look at some of the open source tools for facilitating the web development workflow on the Linux desktop.</p>
+<h3 id="Graphics"><a href="#Graphics" class="headerlink" title="Graphics"></a>Graphics</h3><h4 id="Gimp"><a href="#Gimp" class="headerlink" title="Gimp"></a><a href="http://www.gimp.org/" title="GIMP is the GNU Image Manipulation Program" target="_blank" rel="external">Gimp</a></h4><p>An ever-popular, multi-platform image editing tool, Gimp offers a host of tools useful to web developers. Aside from the obvious utility in graphic design for logos, buttons, icons, etc. Gimp also offers tools for splicing an image into pieces and generating table code for layout. This obviously pairs well with web design, as a website layout can be designed as a single graphic, then sliced into it’s composite parts. Gimp also has a handy feature for optimizing images for the web, reducing file-size and improving load-times. With Gimp’s plugin architecture, there are many additional ways to expand the basic capabilities to fit Gimp into your work-flow.</p>
+<h4 id="Agave"><a href="#Agave" class="headerlink" title="Agave"></a><a href="http://home.gna.org/colorscheme/" target="_blank" rel="external">Agave</a></h4><p>This simple, lightweight application for the GNOME desktop offers web developers a simple way to generate complementary colors for website elements, offering color pairs, triads, tetrads, etc. with on-demand color-matching and saturation/tone adjustments. It very conveniently provides the corresponding color codes in several formats (RGB/Hex), and the ability to save a list of your favorite color-schemes.</p>
+<h4 id="Synfig"><a href="#Synfig" class="headerlink" title="Synfig"></a><a href="http://synfig.org/" target="_blank" rel="external">Synfig</a></h4><p>This remarkably powerful 2d animation studio is built from the ground up to offer industry quality animation capabilities in a convenient way. Developed by an industry professional who was tired of working with inferior tools, Synfig offers the best flash development capabilities found anywhere, native to Linux. Though I personally avoid flash wherever possible, it remains a reality for web developers, and Synfig more than adequately fills the need.</p>
+<h4 id="Inkscape"><a href="#Inkscape" class="headerlink" title="Inkscape"></a><a href="http://www.inkscape.org/" target="_blank" rel="external">Inkscape</a></h4><p>An incredibly popular tool for vector graphics, Inkscape offers full-featured vector design and editing capabilities, and works very well for designing flexible website layouts that export well for optimization and post-processing in Gimp.</p>
+<h3 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h3><p>Every developer’s idea of a useful coding environment differ based on purpose, experience and need. Some prefer the no-bull text-edit mode of vim, emacs, gedit, or kate, some may prefer a fully gui editor like Kompozer, and most probably fall somewhere in between, I’ll give a brief overview of one or two tools for each preference below.</p>
+<h4 id="Kompozer"><a href="#Kompozer" class="headerlink" title="Kompozer"></a><a href="http://kompozer.net/" target="_blank" rel="external">Kompozer</a></h4><p>A long time favorite, Kompozer is a simple-to-use web editor that offers a fully graphical development environment with great support for css based templates, great built in code libraries and fully standards compliant code generation. With easy switching between graphical and source-view, this web development software is an understandable favorite for many beginning web developers and a trusted familiar for experienced developers.</p>
+<p><strong>Key features:</strong> _gui and source editing, built in code support and easy css template generation, built-in ftp client.</p>
+<h4 id="Bluefish"><a href="#Bluefish" class="headerlink" title="Bluefish"></a><a href="http://bluefish.openoffice.nl/" target="_blank" rel="external">Bluefish</a></h4><p>My personal favorite development tool, Bluefish has the perfect mix of useful development tools and configurability in a lightweight gtk+ interface. With auto-completion of html, php, and css tags/attributes, a ready css template generator, configurable syntax highlighting, find and replace functionality, it offers all the frills for the text-friendly web developer. To cap off this handbag of win, Bluefish offers a best-of-class image insertion dialog, with automatic thumbnail generation and automatic linking of the thumbnail with the original image, making gallery generation a cinch.</p>
+<p><strong><em>Key Features:</em></strong> tag auto-completion, configurable syntax highlighting, css template generation dialog, automatic thumb-nailing, complete php reference guide</p>
+<h4 id="Quanta-Plus"><a href="#Quanta-Plus" class="headerlink" title="Quanta Plus"></a><a href="http://quanta.kdewebdev.org/" target="_blank" rel="external">Quanta Plus</a></h4><p>One of the best interfaces and offering reliable stability (everyone hates a crash that causes the loss of hours of work), Quanta Plus is a very nice development environment, with a fully graphical, fully code, and split-view development interface, so that you can watch your code unfold as you lay it down.</p>
+<p>This tool is very useful, but there are a couple of downsides. First: being developed strictly for the KDE environment, Quanta drags in a <em>ton</em> of KDE dependencies when installed on the GNOME desktop. If you use KDE anyways, this is clearly not a problem, but as GNOME has the majority of installs, for most Linux users, Quanta may not be worth the extra libraries and more frequent updates for software you only use for one application.</p>
+<p>Second: Quanta development seems to have come to a standstill, with the last stable version released in 2007. This is disappointing, as the developers produced a high quality application that I for one would have liked to see continue to evolve.</p>
+<p><strong>Key Features:</strong> <em>syntax highlighting, Graphical/Source split-view, support for css generation, project management, multi-language support, easy web template management across and within projects</em></p>
+<p><strong>Honorable Mentions:</strong> Though I’m fond of the above applications for their ease of use and excellent feature sets, many developers prefer other applications, and two that have quite enthusiastic user bases are <strong><em>Screem</em></strong> and <strong><em>Geany</em></strong>.  If none of the above strikes your fancy, these may be what you’re looking for. :)</p>
+<h4 id="Integrated-Development-Environments"><a href="#Integrated-Development-Environments" class="headerlink" title="Integrated Development Environments"></a>Integrated Development Environments</h4><p>IDE’s offer a variety of advantages to web developers, aiming to provide all the tools necessary for web development in a central application. Common features are project management, multi-language support, in-application publishing, debugging and revision control. Though there are many IDE’s for many different programming purposes in Linux, I’ll merely list a couple of the larger, more feature-rich applications.</p>
+<h4 id="Aptana"><a href="#Aptana" class="headerlink" title="Aptana"></a><a href="http://www.aptana.com/" target="_blank" rel="external">Aptana</a></h4><p>Probably my favorite IDE when I am in the mood for a feature-rich, java-script aware environment, Aptana, based on Eclipse, packs a lot of features into a convenient, fast application for web development. Probably the best feature in Aptana is the large collection of importable plugins that let the developer add support for all kinds of projects. By far the most generally useful plugins are the code libraries, including jQuery, YUI, Mootools, Prototype and many more. For each library, code assistance, sample projects and documentation is brought directly into the application. Another big feature is the built-in JavaScript debugging utility. The Aptana team is working on Aptana 3, which will feature git support!</p>
+<h4 id="Komodo"><a href="#Komodo" class="headerlink" title="Komodo"></a><a href="http://www.activestate.com/komodo-edit" target="_blank" rel="external">Komodo</a></h4><p>The first IDE that ever managed to hold my attention, Komodo is absolutely fantastic for PHP developers, offering excellent syntax assistance, code history (fwd/backwd movement through code), and best-in-class code repository management. It includes the ability to checkout code from central repositories directly within the IDE, and built in support for all of the major revision control systems (git, bzr, mercurial(hg)). Komodo also features an extensively configurable interface, with support for multiple, paned top-level windows for simultaneous review and editing of multiple files. As someone who primarily works in PHP, Komodo is the most useful application for most of my work-flow.</p>
+<h3 id="Crash-Performance-Testing"><a href="#Crash-Performance-Testing" class="headerlink" title="Crash/Performance Testing"></a>Crash/Performance Testing</h3><p>Every developer knows that sometimes, despite your most thorough review, bugs can crop up when a site goes live, and it’s critically important to be able to test an application before it’s put into production. For HTML, CSS and simple JavaScript projects, testing can be done readily within the browser by previewing local files, but if you plan to use any PHP, Perl, or Python in your application, you simply can’t presume that the functional bits of code will behave as you expect without putting them through rigorous testing.</p>
+<p>To that end, Linux easily outshines other development platforms, especially in the popular combination of tools known as a LAMP server. If you’re not already familiar with the term, LAMP stands for Linux, Apache, MySQL, PHP, who, when the power of their rings unites, provides a powerful, stable, and flexible platform for almost all web-development needs, including a highly stable, configurable OS with low overhead, to get the best performance out of the available hardware, a powerful, secure and extensible web server, MySQL for database needs, and PHP for dynamic scripting, file uploads/downloads, and database interaction.</p>
+<p>The tremendous news to Linux using web developers, is that you’re already using the base of this killer combination. Every major distribution provides a simple-to-install binary package for Apache, MySQL and PHP which will typically be configured to run right out of the box. Many distributions even provide a metapackage to install the LAMP package as a whole without seeking out the individual binaries. While the availability of Apache for easy installation is terrific, if you happen to develop on older hardware, a netbook, or would just rather not add another service to your desktop, the <a href="http://www.apachefriends.org/en/xampp.html" target="_blank" rel="external">XAMPP</a> project is a terrific solution for pre-configured, fully featured testing environment for web developers which includes Apache, MySQL, PHP and Perl as well as  several demo projects to demonstrate various functionalities, and phpMyAdmin for a friendly database interface if you’re not comfortable at the command line.</p>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>The Linux desktop truly offers a broad variety of options for web developers who may be tired of keeping around a dual boot for a smattering of tools with no familiar counterparts on their desktop of choice. I hope to have introduced here a collection of tools that will help other web developers to make the leap to a fully open source development environment, with no loss of critical features, and minimal workflow adjustment.</p>
+<p>Though it would have been impossible to review all of the possible applications for web development available on Linux, if I left out something you consider critical to your workflow, please let us know in the comments, we’d love to hear about your favorite web-dev workflow applications. Did we leave out a particular part of your workflow? Still not sure what may be available to meet a particular development need? Feel free to ask, we’ll be glad to try to help!</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/web-development/" class="tag tag-1">web development</a>
+    
+      <a href="/tags/linux/" class="tag tag-2">linux</a>
+    
+      <a href="/tags/open-source/" class="tag tag-3">open source</a>
+    
+    </div>
+  
+
+</article>
+
+    
+
+    <nav class="pagination">
+  
+    <a href="/" class="pagination_prev">prev</a>
+  
+  
+</nav>
+
+  </section>
+
+  </main>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-6384815-4', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

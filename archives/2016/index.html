@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Ollomedia |  Tales from the Front End by Joshua Ray  </title>
+    <meta name="description" content="Joshua Ray is a web developer from St. Louis currently residing in Boulder CO.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="HhV5rTmhX1kf5DWeoQx-s3hNmITH4MwwmOzkETbmv0E" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+
+<body>
+  <section class="site-header">
+    <header class="masthead">
+      <h1 class="title"><a href="/">Ollomedia</a></h1>
+      <div class="social">
+        <a href="https://twitter.com/ollomedia" title="twitter" target="_blank">{ T<span>witter</span> }</a>
+        <a href="https://github.com/Ollo" title="github" target="_blank">{ G<span>ithub</span> }</a>
+        <a href="https://www.linkedin.com/in/ollomedia" title="linkedin" target="_blank">{ L<span>inkedIn</span> }</a>
+      </div>
+    </header>
+  </section>
+  <main>
+    
+  <section class="posts wrapper">
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/keeping-react-component-styles-manageable-with-bem/">keeping react component styles manageable with bem</a></h3>
+    <p class="light post_date">Nov 13, 2016</p>
+  </header>
+
+  <div class="post_content">
+    <p>After a few months of working on a new project and getting comfortable transitioning to React from Angular<br>I’ve been turned on to a new strategy for managing component based css. Our team found that using BEM really<br>helps keep component styles small and manageable while also easy to debug. Below is a high level example of this approach that would require a bundler like webpack and babel to handle the es6 transpilation but could be re-written with es5 syntax as well if one desired.</p>
+<p>I had reviewed BEM a few years back while researching large scale css strategies but hadn’t fully adopted it as it initially felt a bit too verbose for my liking and at that point I was still writing the majority of my styles in more of a monolithic cascade approach. Now with a simple bit of javascript utility I’ve found I can maintain tightly scoped modular styles for each component but also leverage a bit of classic cascade with some minimal partials.</p>
+<p>First here is a simple component to demonstrate.</p>
+<pre><code class="javascript">import React, { Component, PropTypes } from &#39;react&#39;
+
+export default class ArticleCard extends Component {
+
+  render () {
+
+    const { article } = this.props
+
+    return {
+      &lt;article&gt;
+        &lt;figure&gt;
+          &lt;img src=&quot;{ article.img }&quot; /&gt;
+          &lt;figcaption&gt;
+            &lt;h3&gt;{ article.title }&lt;/h3&gt;
+            &lt;span&gt;{ article.published_date }&lt;/span&gt;
+          &lt;/figcaption&gt;
+        &lt;/figure&gt;
+        &lt;div&gt;
+          { article.content }
+        &lt;/div&gt;
+      &lt;/article&gt;
+    }
+  }
+}
+
+ArticleCard.propTypes = {
+  article: PropTypes.object.isRequired
+}
+</code></pre>
+<p>Now in this current state the component is modular and not tainted with styles from its specific implementation.<br>For instance if you want to use this article card on a magazine layout styled homepage and in a sidebar feature of an article detail how can you keep from repeating yourself while still being able to add some context<br>from each instance where the component is used? Our team uses a simple function for css class management.</p>
+<pre><code class="javascript">function getClasses (parentClasses) {
+  const componentClasses = [
+    &#39;article&#39;
+  ]
+  if (parentClasses) {
+    componentClasses.push(parentClasses)
+  }
+  return componentClasses.join(&#39; &#39;)
+}
+</code></pre>
+<p>With this small utility function we can dynamically pass in context so lets add it to the component and implement some BEM classes to provide a surface area for some basic styles.</p>
+<pre><code class="javascript">import React, { Component, PropTypes } from &#39;react&#39;
+import &#39;./_ArticleCard.scss&#39;
+
+function getClasses (parentClasses) {
+  const componentClasses = [
+    &#39;article&#39;
+  ]
+  if (parentClasses) {
+    componentClasses.push(parentClasses)
+  }
+  return componentClasses.join(&#39; &#39;)
+}
+
+export default class ArticleCard extends Component {
+
+  render () {
+
+    const { article, articleClasses } = this.props
+
+    return {
+      &lt;article className={ getClasses(props.articleClasses) }&gt;
+        &lt;figure className=&#39;article__card&#39;&gt;
+          &lt;img src=&quot;{ article.img }&quot; className=&#39;article__card-image&#39;/&gt;
+          &lt;figcaption className=&#39;article__card-caption&#39;&gt;
+            &lt;h3 className=&#39;article__card-title&#39;&gt;{ article.title }&lt;/h3&gt;
+            &lt;span className=&#39;article__card-date&#39;&gt;{ article.published_date }&lt;/span&gt;
+          &lt;/figcaption&gt;
+        &lt;/figure&gt;
+        &lt;div className=&#39;article__card-content&#39;&gt;
+          { article.content }
+        &lt;/div&gt;
+      &lt;/article&gt;
+    }
+  }
+}
+
+ArticleCard.propTypes = {
+  article: PropTypes.object.isRequired,
+  articleClasses: PropTypes.array
+}
+</code></pre>
+<p>Now with some BEM class names nesting in sass makes the verbosity far less cumbersome but also enforces the scoping we need for a truly reusable component.</p>
+<pre><code class="css">
+/* _ArticleCard.scss */
+
+.article {
+  &amp;__card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    color: slategray;
+  }
+  &amp;__card-image {
+
+  }
+  &amp;__card-caption {
+
+  }
+  &amp;__card-title {
+    font-size: 3rem;
+  }
+  &amp;__card-date {
+    font-size: 1.6rem;
+  }
+  &amp;__card-content {
+
+  }
+}
+</code></pre>
+<p>Now each parent component that is using this Card component can also pass in a css class to provide some top level styles based on its context.</p>
+<pre><code class="javascript">
+import ArticleCard from &#39;your/project/path/ArticleCard&#39;
+
+function ArticlePage(props) {
+  return (
+    &lt;Page&gt;
+      &lt;ArticleCard
+        article={ articleData }
+        articleClasses={ [&#39;article-page&#39;] } /&gt;
+    &lt;/Page&gt;
+  )
+}
+</code></pre>
+<p>This pattern really helped me to start thinking more creatively about re-usable styles but more through the lens of components rather than a styles that cascade through global partials and mixins. Hopefully you too find it useful.</p>
+<p>Cheers.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/sass/" class="tag tag-1">sass</a>
+    
+      <a href="/tags/react/" class="tag tag-2">react</a>
+    
+      <a href="/tags/javascript/" class="tag tag-3">javascript</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/document-driven-css/">document driven css</a></h3>
+    <p class="light post_date">May 20, 2016</p>
+  </header>
+
+  <div class="post_content">
+    <p>As I’ve worked with several different teams over the years I’ve found documentation to be a bit of a hot button topic. Some feel over documentation is the only way to professionally deliver work and some prefer to simply write “self-documenting” code. I’ve sat through multiple debates and have been part to many a code review where these two mindsets have caused quite a stir.</p>
+<h4 id="Premise"><a href="#Premise" class="headerlink" title="Premise"></a>Premise</h4><p>On a recent fairly large application build I decided to test some theories around documentation with Sass. I wanted to attempt a documentation driven approach which I define as:</p>
+<blockquote>
+<p>All code that is intended for re-use or extensibility within a library or project should have documentation written up-front or in parallel instead of it being added after the fact.</p>
+</blockquote>
+<p>This may at first just appear to be a pedantic argument, but I wanted to research and possibly prove a couple of hypotheses through this approach.</p>
+<p>1.) The project at the end wouldn’t lack documentation like so many other great projects do and if the documentation efforts had fallen behind it would be less effort to back fill.</p>
+<p>2.) Code quality would increase as there was more thought put into the solution at the time of authorship.</p>
+<p>In my opinion CSS is a fairly simple language with a long history of hacks. I find its very easy and far to common to just write more code rather than think through problems up front and write well thought out modular solutions. Also documentation as a practice is pretty rare in CSS as a whole unless you are viewing the source for a popular public framework or library.</p>
+<h4 id="Risks"><a href="#Risks" class="headerlink" title="Risks"></a>Risks</h4><p>Alongside these hopeful outcomes I also theorized a couple potential side-effects of taking this approach.</p>
+<p>1.) Developers velocity would decrease as more thought would be needed during authoring and this might disrupt a typical workflow.</p>
+<p>2.) Code bloat. I wondered if writing docs upfront would influence a developer into thinking every line of CSS has to be modular and re-usable.</p>
+<p>I feel these risks have to be weighted differently depending on the project. In my test case above, we had plenty of runway to work through some early prototypes and think of systems to use in our css. These fairly complex systems necessitated a comprehensive set of accompanying documentation that other engineers could ingest for feature development. If I had a smaller site or project I doubt I would take such a stern approach to being document driven.</p>
+<h4 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h4><p><a href="http://warpspire.com/kss/" target="_blank" rel="external">KSS</a> is the tool I decided to use for documentation. It had some notable use cases and pretty decent documentation even if it only provided ruby references. I also utilized a <a href="https://www.npmjs.com/package/gulp-kss" target="_blank" rel="external">gulp plugin</a> to automate this step into our existing build pipeline. We also created our own theme for our documentation and incorporated angular and google material as both of those libraries are used in the project and they were needed as dependencies in order to properly represent our apps components.</p>
+<h4 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h4><p>If I told you this experiment went off without a hitch I would be lying. We did end up having a much larger and more comprehensive set of documentation, but when deadlines loomed we loosened our convictions to maintain them. We ended up having to backfill documentation and do several rounds of refactoring to get our Sass components and docs up to date after major deadline pushes with new feature development. The documentation did however prove to be a useful resource to more team members that were more focused on data and application development with less focus on UI. Overall I feel that for this strategy to be successful it needs to be established as a core principle for each team and there really needs to be buy in from the whole team to ensure success.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/css/" class="tag tag-1">css</a>
+    
+      <a href="/tags/architecture/" class="tag tag-2">architecture</a>
+    
+      <a href="/tags/web-development/" class="tag tag-3">web development</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/selective-data-loading-in-angular/">selective data loading in angular</a></h3>
+    <p class="light post_date">Apr 27, 2016</p>
+  </header>
+
+  <div class="post_content">
+    <p>Today I was working on a new feature for a large angular application.<br>The feature called for an adaptive carousel that loaded different data based on the viewport. I typically dislike this kind of design since if not handled correctly can create bad experiences for mobile users.</p>
+<p>Typically developers will just hide and show different versions of the component based on a css breakpoint. But this approach means that all the data is loaded potentially multiple times and just hidden if its not needed in the view. This can cause very latent interfaces on mobile so I decided to tackle this through javascript.</p>
+<pre><code class="javascript">determineShowAmount($window);
+
+// Only show the number of cards appropriate for the viewport
+angular.element($window).on(&#39;resize&#39;, function() {
+  determineShowAmount($window);
+  $scope.$digest();
+});
+
+
+function determineShowAmount($window) {
+  if($window.innerWidth &lt; 768) {
+    $scope.cardLimit = 2;
+  }
+  else if ($window.innerWidth &gt;= 768 &amp;&amp; $window.innerWidth &lt; 1024) {
+    return $scope.cardLimit = 3;
+  }
+  else {
+    return $scope.cardLimit = 4;
+  }
+}
+</code></pre>
+<p>I still have some performance testing to do as binding to the <code>$window</code> resize event feels potentially expensive but so far the performance has been great.</p>
+<p>If anyone has any feedback or better practices for this type of scenario I would love to hear it. Hit me up on twitter and let me know.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/javascript/" class="tag tag-1">javascript</a>
+    
+      <a href="/tags/angular/" class="tag tag-2">angular</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/reverting-to-reset/">reverting to reset</a></h3>
+    <p class="light post_date">Mar 22, 2016</p>
+  </header>
+
+  <div class="post_content">
+    <p>I love approaching projects from a modular, componentized approach and commonly am looking for new tools or techniques across languages to facilitate this methodology.</p>
+<p>Today I was reading an <a href="http://thesassway.com/advanced/modular-css-typography" target="_blank" rel="external">interesting post</a> on making css typography more modular and came across a thought provoking statement on the authors rationale on using a css reset over something like Normalize.</p>
+<blockquote>
+<p>The other reason to start with a fuller reset is that starting from zero allows you to layer on styles without worrying about turning off other styles. Read that one more time. Anytime you have to turn off styles in multiple places in your stylesheets your are spreading the knowledge of those styles throughout your stylesheet instead of having them in only one place.</p>
+</blockquote>
+<p>This is interesting for me since a couple years back I switched from using Eric Meyers reset to using Normalize so I could focus more on the unique UI components of an application from a sensible baseline instead of having to start from ground zero.</p>
+<p> Reflecting on some of these projects now however, I can 100% see how that mindset / approach can totally backfire and make truly modular code difficult. Typically this has manifested for me any time I needed to refactor a component from being view / feature specific to something more useful to the application globally. I seem to find that the cascade from parent components or default styles are coupling the component and thus quite a bit of css needs to be refactored.</p>
+<p> On my next project I think I’ll try switching back to a reset and see if this assists in better flexibility.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/css/" class="tag tag-1">css</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/accepting-feedback/">accepting feedback</a></h3>
+    <p class="light post_date">Jan 31, 2016</p>
+  </header>
+
+  <div class="post_content">
+    <p>I read an interesting <a href="https://www.linkedin.com/pulse/restaurant-owner-issued-remarkable-response-new-york-times-bariso" target="_blank" rel="external">article</a> today regarding a renowned New York chef who recently received a negative review that was one of the most read critiques ever on the New York Times. It wasn’t a story around the duality of the newspaper that had just given the chef high marks 4 years earlier but rather a tale on how the chef responded to such a strong critique. He apologized.</p>
+<blockquote>
+<p>We are not content resting on what we did yesterday. We believe we can do better for ourselves, our profession and most importantly our guests. We have the opportunity, the tools, the self-motivation and the dedication to do so.</p>
+<p>When we fall short, we work even harder. We are confident that the next time you visit Per Se or any of our other restaurants, our team will deliver a most memorable experience.</p>
+<p>— Thomas Keller, Chef / Proprietor</p>
+</blockquote>
+<p>Last week at work my company went through an exercise that provided some feedback into our performance and a place to discuss our professional and personal goals. Overall there was good discussion and I think these types of exercises with proper thought and preparation can be really helpful. During my session I received some feedback I didn’t quite agree with and didn’t fully understand. At first this really fired me up and made me defensive but after some reflection and reading a story like this I’m inspired.<br>How much could I grow as a leader if I practiced accepting feedback from a stance of first reflecting and wondering: How can this help me grow?</p>
+<p>There is obviously a limit to this practice as I’m not planning to just accept all feedback regardless of delivery, but I think it is a practice worth considering.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/me/" class="tag tag-1">me</a>
+    
+      <a href="/tags/business/" class="tag tag-2">business</a>
+    
+    </div>
+  
+
+</article>
+
+    
+
+    <nav class="pagination">
+  
+  
+</nav>
+
+  </section>
+
+  </main>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-6384815-4', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

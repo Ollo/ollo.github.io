@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> Ollomedia |  Tales from the Front End by Joshua Ray  </title>
+    <meta name="description" content="Joshua Ray is a web developer from St. Louis currently residing in Boulder CO.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="HhV5rTmhX1kf5DWeoQx-s3hNmITH4MwwmOzkETbmv0E" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+
+<body>
+  <section class="site-header">
+    <header class="masthead">
+      <h1 class="title"><a href="/">Ollomedia</a></h1>
+      <div class="social">
+        <a href="https://twitter.com/ollomedia" title="twitter" target="_blank">{ T<span>witter</span> }</a>
+        <a href="https://github.com/Ollo" title="github" target="_blank">{ G<span>ithub</span> }</a>
+        <a href="https://www.linkedin.com/in/ollomedia" title="linkedin" target="_blank">{ L<span>inkedIn</span> }</a>
+      </div>
+    </header>
+  </section>
+  <main>
+    
+  <section class="posts wrapper">
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/Learning-to-let-go-of-CSS-control/">Learning to let go of CSS control</a></h3>
+    <p class="light post_date">Aug 13, 2017</p>
+  </header>
+
+  <div class="post_content">
+    <p>Now that I’ve embraced React and Redux as my javascript framework of choice and have been building with it full time on the last few projects and interesting shift in the way I view CSS has begun.</p>
+<p>Previously I would use a pretty minimal set of partials to bootstrap the styles of an application and I would grow that structure as new features were added on and new variables or mix-ins were required. With React I’m now seeing the vision of a component based architecture realized and this more global approach to styles feels like more of an anti-pattern. Through architecting these component based systems I’m still finding there are uses for some degree of global scope for things like grids for layout so to leverage the best of both worlds I’ve found CSS modules to provide a nice balance.</p>
+<p>To demonstrate here is how my typical component structure is setup.</p>
+<pre><code>/Button
+  /Button.js
+  /index.js
+  /Button.scss
+</code></pre><p>Now typically I would pull in partials in the scss file and attempt to style for all of the permutations that I want to use my button for.</p>
+<p><strong>Button.scss</strong></p>
+<pre><code>@import &#39;_button.scss&#39;
+
+.Button {
+  color: $btn-primary-color;
+  background: $btn-primary-bg-color;
+  ...
+}
+
+.Button--secondary {
+  ...
+}
+</code></pre><p>This worked fairly well for a time but I found that there we lots of instances where I needed to override the default styles to work with a specific composition like in a modal footer or as part of a form. So I would stack a new class onto the component in more of a BEM approach using the <code>getClassNames</code> utility I shared in a previous post</p>
+<p><strong>Button.js</strong></p>
+<pre><code>function getClasses (parentClasses) {
+  const componentClasses = [
+    &#39;Button&#39;
+  ]
+  if (parentClasses) {
+    componentClasses.push(parentClasses)
+  }
+  return componentClasses.join(&#39; &#39;)
+}
+
+
+&lt;Button className={ getClasses(&#39;Sign-Up__footer-button&#39;) } /&gt;
+</code></pre><p>This worked well for a time but I found that I was writing a lot more CSS to cover the specific instances where I needed a set of minor tweaks for a composition than I should need but I didn’t want to create a big list of modifiers as that wouldn’t be maintainable. This approach also felt wrong as the majority of these styles weren’t re-usable which defeats the enhancements that originally brought me into preprocessors.</p>
+<p>Another challenge was that now that I work in a dedicated javascript development role I collaborate with designers that manage the bulk of our CSS across projects so maintaining my own set of partials isn’t really feasible as the baselines need to be strictly versioned outside of my project.</p>
+<p>To solve these challenges my team and I decided to adopt CSS modules. By using composition we are now able to maintain a large set of finely tuned variables and mix-ins in a separate project managed as an npm package without designers needing to be up to their eyeballs in React and I can focus on component design without risk of straying from our design standards. To demonstrate here is how I would build the button component. </p>
+<p><strong>Button.scss</strong></p>
+<pre><code>.Button {
+  composes: Button from &#39;~/teamsnap-ui/src/_button.scss&#39;;
+}
+</code></pre><p><strong>Button.js</strong></p>
+<pre><code>import styles from &#39;./Button.scss&#39;
+
+&lt;Button className={ styles.Button } /&gt;
+</code></pre><p>There are still plenty of challenges to solve for such as how to theme a component for re-use across projects but I’m finding this outsourcing of the primary styles is working really well. I also get the benefit of collision projection BEM provides automatically due to the way these CSS module composed styles are converted into classes via javascript <code>.Form-Button__as34sdf</code>. </p>
+<p>I’ve found there are still a few use cases for more global CSS such as grid classes you want to just apply to a component but I’m confident that with time we can find elegant solutions to maintain those as components as well. I hope this helps you find new ways to leverage component architecture and if you have any feedback or suggestions be sure to hit me up on Twitter. Happy Coding.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/css/" class="tag tag-1">css</a>
+    
+      <a href="/tags/architecture/" class="tag tag-2">architecture</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/keeping-react-component-styles-manageable-with-bem/">keeping react component styles manageable with bem</a></h3>
+    <p class="light post_date">Nov 13, 2016</p>
+  </header>
+
+  <div class="post_content">
+    <p>After a few months of working on a new project and getting comfortable transitioning to React from Angular<br>I’ve been turned on to a new strategy for managing component based css. Our team found that using BEM really<br>helps keep component styles small and manageable while also easy to debug. Below is a high level example of this approach that would require a bundler like webpack and babel to handle the es6 transpilation but could be re-written with es5 syntax as well if one desired.</p>
+<p>I had reviewed BEM a few years back while researching large scale css strategies but hadn’t fully adopted it as it initially felt a bit too verbose for my liking and at that point I was still writing the majority of my styles in more of a monolithic cascade approach. Now with a simple bit of javascript utility I’ve found I can maintain tightly scoped modular styles for each component but also leverage a bit of classic cascade with some minimal partials.</p>
+<p>First here is a simple component to demonstrate.</p>
+<pre><code class="javascript">import React, { Component, PropTypes } from &#39;react&#39;
+
+export default class ArticleCard extends Component {
+
+  render () {
+
+    const { article } = this.props
+
+    return {
+      &lt;article&gt;
+        &lt;figure&gt;
+          &lt;img src=&quot;{ article.img }&quot; /&gt;
+          &lt;figcaption&gt;
+            &lt;h3&gt;{ article.title }&lt;/h3&gt;
+            &lt;span&gt;{ article.published_date }&lt;/span&gt;
+          &lt;/figcaption&gt;
+        &lt;/figure&gt;
+        &lt;div&gt;
+          { article.content }
+        &lt;/div&gt;
+      &lt;/article&gt;
+    }
+  }
+}
+
+ArticleCard.propTypes = {
+  article: PropTypes.object.isRequired
+}
+</code></pre>
+<p>Now in this current state the component is modular and not tainted with styles from its specific implementation.<br>For instance if you want to use this article card on a magazine layout styled homepage and in a sidebar feature of an article detail how can you keep from repeating yourself while still being able to add some context<br>from each instance where the component is used? Our team uses a simple function for css class management.</p>
+<pre><code class="javascript">function getClasses (parentClasses) {
+  const componentClasses = [
+    &#39;article&#39;
+  ]
+  if (parentClasses) {
+    componentClasses.push(parentClasses)
+  }
+  return componentClasses.join(&#39; &#39;)
+}
+</code></pre>
+<p>With this small utility function we can dynamically pass in context so lets add it to the component and implement some BEM classes to provide a surface area for some basic styles.</p>
+<pre><code class="javascript">import React, { Component, PropTypes } from &#39;react&#39;
+import &#39;./_ArticleCard.scss&#39;
+
+function getClasses (parentClasses) {
+  const componentClasses = [
+    &#39;article&#39;
+  ]
+  if (parentClasses) {
+    componentClasses.push(parentClasses)
+  }
+  return componentClasses.join(&#39; &#39;)
+}
+
+export default class ArticleCard extends Component {
+
+  render () {
+
+    const { article, articleClasses } = this.props
+
+    return {
+      &lt;article className={ getClasses(props.articleClasses) }&gt;
+        &lt;figure className=&#39;article__card&#39;&gt;
+          &lt;img src=&quot;{ article.img }&quot; className=&#39;article__card-image&#39;/&gt;
+          &lt;figcaption className=&#39;article__card-caption&#39;&gt;
+            &lt;h3 className=&#39;article__card-title&#39;&gt;{ article.title }&lt;/h3&gt;
+            &lt;span className=&#39;article__card-date&#39;&gt;{ article.published_date }&lt;/span&gt;
+          &lt;/figcaption&gt;
+        &lt;/figure&gt;
+        &lt;div className=&#39;article__card-content&#39;&gt;
+          { article.content }
+        &lt;/div&gt;
+      &lt;/article&gt;
+    }
+  }
+}
+
+ArticleCard.propTypes = {
+  article: PropTypes.object.isRequired,
+  articleClasses: PropTypes.array
+}
+</code></pre>
+<p>Now with some BEM class names nesting in sass makes the verbosity far less cumbersome but also enforces the scoping we need for a truly reusable component.</p>
+<pre><code class="css">
+/* _ArticleCard.scss */
+
+.article {
+  &amp;__card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    color: slategray;
+  }
+  &amp;__card-image {
+
+  }
+  &amp;__card-caption {
+
+  }
+  &amp;__card-title {
+    font-size: 3rem;
+  }
+  &amp;__card-date {
+    font-size: 1.6rem;
+  }
+  &amp;__card-content {
+
+  }
+}
+</code></pre>
+<p>Now each parent component that is using this Card component can also pass in a css class to provide some top level styles based on its context.</p>
+<pre><code class="javascript">
+import ArticleCard from &#39;your/project/path/ArticleCard&#39;
+
+function ArticlePage(props) {
+  return (
+    &lt;Page&gt;
+      &lt;ArticleCard
+        article={ articleData }
+        articleClasses={ [&#39;article-page&#39;] } /&gt;
+    &lt;/Page&gt;
+  )
+}
+</code></pre>
+<p>This pattern really helped me to start thinking more creatively about re-usable styles but more through the lens of components rather than a styles that cascade through global partials and mixins. Hopefully you too find it useful.</p>
+<p>Cheers.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/sass/" class="tag tag-1">sass</a>
+    
+      <a href="/tags/react/" class="tag tag-2">react</a>
+    
+      <a href="/tags/javascript/" class="tag tag-3">javascript</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/document-driven-css/">document driven css</a></h3>
+    <p class="light post_date">May 20, 2016</p>
+  </header>
+
+  <div class="post_content">
+    <p>As I’ve worked with several different teams over the years I’ve found documentation to be a bit of a hot button topic. Some feel over documentation is the only way to professionally deliver work and some prefer to simply write “self-documenting” code. I’ve sat through multiple debates and have been part to many a code review where these two mindsets have caused quite a stir.</p>
+<h4 id="Premise"><a href="#Premise" class="headerlink" title="Premise"></a>Premise</h4><p>On a recent fairly large application build I decided to test some theories around documentation with Sass. I wanted to attempt a documentation driven approach which I define as:</p>
+<blockquote>
+<p>All code that is intended for re-use or extensibility within a library or project should have documentation written up-front or in parallel instead of it being added after the fact.</p>
+</blockquote>
+<p>This may at first just appear to be a pedantic argument, but I wanted to research and possibly prove a couple of hypotheses through this approach.</p>
+<p>1.) The project at the end wouldn’t lack documentation like so many other great projects do and if the documentation efforts had fallen behind it would be less effort to back fill.</p>
+<p>2.) Code quality would increase as there was more thought put into the solution at the time of authorship.</p>
+<p>In my opinion CSS is a fairly simple language with a long history of hacks. I find its very easy and far to common to just write more code rather than think through problems up front and write well thought out modular solutions. Also documentation as a practice is pretty rare in CSS as a whole unless you are viewing the source for a popular public framework or library.</p>
+<h4 id="Risks"><a href="#Risks" class="headerlink" title="Risks"></a>Risks</h4><p>Alongside these hopeful outcomes I also theorized a couple potential side-effects of taking this approach.</p>
+<p>1.) Developers velocity would decrease as more thought would be needed during authoring and this might disrupt a typical workflow.</p>
+<p>2.) Code bloat. I wondered if writing docs upfront would influence a developer into thinking every line of CSS has to be modular and re-usable.</p>
+<p>I feel these risks have to be weighted differently depending on the project. In my test case above, we had plenty of runway to work through some early prototypes and think of systems to use in our css. These fairly complex systems necessitated a comprehensive set of accompanying documentation that other engineers could ingest for feature development. If I had a smaller site or project I doubt I would take such a stern approach to being document driven.</p>
+<h4 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h4><p><a href="http://warpspire.com/kss/" target="_blank" rel="external">KSS</a> is the tool I decided to use for documentation. It had some notable use cases and pretty decent documentation even if it only provided ruby references. I also utilized a <a href="https://www.npmjs.com/package/gulp-kss" target="_blank" rel="external">gulp plugin</a> to automate this step into our existing build pipeline. We also created our own theme for our documentation and incorporated angular and google material as both of those libraries are used in the project and they were needed as dependencies in order to properly represent our apps components.</p>
+<h4 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h4><p>If I told you this experiment went off without a hitch I would be lying. We did end up having a much larger and more comprehensive set of documentation, but when deadlines loomed we loosened our convictions to maintain them. We ended up having to backfill documentation and do several rounds of refactoring to get our Sass components and docs up to date after major deadline pushes with new feature development. The documentation did however prove to be a useful resource to more team members that were more focused on data and application development with less focus on UI. Overall I feel that for this strategy to be successful it needs to be established as a core principle for each team and there really needs to be buy in from the whole team to ensure success.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/css/" class="tag tag-1">css</a>
+    
+      <a href="/tags/architecture/" class="tag tag-2">architecture</a>
+    
+      <a href="/tags/web-development/" class="tag tag-3">web development</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/selective-data-loading-in-angular/">selective data loading in angular</a></h3>
+    <p class="light post_date">Apr 27, 2016</p>
+  </header>
+
+  <div class="post_content">
+    <p>Today I was working on a new feature for a large angular application.<br>The feature called for an adaptive carousel that loaded different data based on the viewport. I typically dislike this kind of design since if not handled correctly can create bad experiences for mobile users.</p>
+<p>Typically developers will just hide and show different versions of the component based on a css breakpoint. But this approach means that all the data is loaded potentially multiple times and just hidden if its not needed in the view. This can cause very latent interfaces on mobile so I decided to tackle this through javascript.</p>
+<pre><code class="javascript">determineShowAmount($window);
+
+// Only show the number of cards appropriate for the viewport
+angular.element($window).on(&#39;resize&#39;, function() {
+  determineShowAmount($window);
+  $scope.$digest();
+});
+
+
+function determineShowAmount($window) {
+  if($window.innerWidth &lt; 768) {
+    $scope.cardLimit = 2;
+  }
+  else if ($window.innerWidth &gt;= 768 &amp;&amp; $window.innerWidth &lt; 1024) {
+    return $scope.cardLimit = 3;
+  }
+  else {
+    return $scope.cardLimit = 4;
+  }
+}
+</code></pre>
+<p>I still have some performance testing to do as binding to the <code>$window</code> resize event feels potentially expensive but so far the performance has been great.</p>
+<p>If anyone has any feedback or better practices for this type of scenario I would love to hear it. Hit me up on twitter and let me know.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/javascript/" class="tag tag-1">javascript</a>
+    
+      <a href="/tags/angular/" class="tag tag-2">angular</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/reverting-to-reset/">reverting to reset</a></h3>
+    <p class="light post_date">Mar 22, 2016</p>
+  </header>
+
+  <div class="post_content">
+    <p>I love approaching projects from a modular, componentized approach and commonly am looking for new tools or techniques across languages to facilitate this methodology.</p>
+<p>Today I was reading an <a href="http://thesassway.com/advanced/modular-css-typography" target="_blank" rel="external">interesting post</a> on making css typography more modular and came across a thought provoking statement on the authors rationale on using a css reset over something like Normalize.</p>
+<blockquote>
+<p>The other reason to start with a fuller reset is that starting from zero allows you to layer on styles without worrying about turning off other styles. Read that one more time. Anytime you have to turn off styles in multiple places in your stylesheets your are spreading the knowledge of those styles throughout your stylesheet instead of having them in only one place.</p>
+</blockquote>
+<p>This is interesting for me since a couple years back I switched from using Eric Meyers reset to using Normalize so I could focus more on the unique UI components of an application from a sensible baseline instead of having to start from ground zero.</p>
+<p> Reflecting on some of these projects now however, I can 100% see how that mindset / approach can totally backfire and make truly modular code difficult. Typically this has manifested for me any time I needed to refactor a component from being view / feature specific to something more useful to the application globally. I seem to find that the cascade from parent components or default styles are coupling the component and thus quite a bit of css needs to be refactored.</p>
+<p> On my next project I think I’ll try switching back to a reset and see if this assists in better flexibility.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/css/" class="tag tag-1">css</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/accepting-feedback/">accepting feedback</a></h3>
+    <p class="light post_date">Jan 31, 2016</p>
+  </header>
+
+  <div class="post_content">
+    <p>I read an interesting <a href="https://www.linkedin.com/pulse/restaurant-owner-issued-remarkable-response-new-york-times-bariso" target="_blank" rel="external">article</a> today regarding a renowned New York chef who recently received a negative review that was one of the most read critiques ever on the New York Times. It wasn’t a story around the duality of the newspaper that had just given the chef high marks 4 years earlier but rather a tale on how the chef responded to such a strong critique. He apologized.</p>
+<blockquote>
+<p>We are not content resting on what we did yesterday. We believe we can do better for ourselves, our profession and most importantly our guests. We have the opportunity, the tools, the self-motivation and the dedication to do so.</p>
+<p>When we fall short, we work even harder. We are confident that the next time you visit Per Se or any of our other restaurants, our team will deliver a most memorable experience.</p>
+<p>— Thomas Keller, Chef / Proprietor</p>
+</blockquote>
+<p>Last week at work my company went through an exercise that provided some feedback into our performance and a place to discuss our professional and personal goals. Overall there was good discussion and I think these types of exercises with proper thought and preparation can be really helpful. During my session I received some feedback I didn’t quite agree with and didn’t fully understand. At first this really fired me up and made me defensive but after some reflection and reading a story like this I’m inspired.<br>How much could I grow as a leader if I practiced accepting feedback from a stance of first reflecting and wondering: How can this help me grow?</p>
+<p>There is obviously a limit to this practice as I’m not planning to just accept all feedback regardless of delivery, but I think it is a practice worth considering.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/me/" class="tag tag-1">me</a>
+    
+      <a href="/tags/business/" class="tag tag-2">business</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/dynamic-styles-with-sass-maps/">dynamic styles with sass maps</a></h3>
+    <p class="light post_date">Dec 16, 2015</p>
+  </header>
+
+  <div class="post_content">
+    <p>So recently I was working on an angular directive that produced a content card and each of them needed a unique accent color. Each of these cards are produced through an <code>ng-repeat</code> as a result of an api response that was fairly limited in data / context. Essentially all I had to identify each card was a single letter that was used on each card.</p>
+<p>Usually in this situation I would just manually write six disctinct classes since there was such a small number of variants but lately I’ve been seeing some fun applications of sass maps and functions so I wanted to give them a shot. Below is what I ended up with.</p>
+<pre><code class="less">$card_colors: (
+  &#39;r&#39;: $blue,
+  &#39;i&#39;: $green,
+  &#39;a&#39;: $mustard,
+  &#39;s&#39;: $burnt_orange,
+  &#39;e&#39;: $spray_blue,
+  &#39;c&#39;: $burnt_sienna_red
+);
+
+@function get-color($color_code: r) {
+  @return map-get($card_colors, $color_code);
+}
+
+@each $background, $color_code in $card_colors {
+  .code_background-#{$background} {
+    background-color: get-color($background);
+  }
+}
+</code></pre>
+<p>Overall I’m pretty pleased with the power of this approach but I do worry a little about how readable and maintainable this approach would be for a developer that comes behind me.</p>
+<p>I also at some point need to do some performance evaluations as traditionally sass maps haven’t been recommended in production due to performance. Thoughts?</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/css/" class="tag tag-1">css</a>
+    
+      <a href="/tags/sass/" class="tag tag-2">sass</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/wordcamp-st-louis/">WordCamp St Louis</a></h3>
+    <p class="light post_date">Feb 25, 2014</p>
+  </header>
+
+  <div class="post_content">
+    <p><a href="http://2014.stlouis.wordcamp.org" title="I" target="_blank" rel="external"><img src="http://2014.stlouis.wordcamp.org/files/2014/02/horizbadges_SPEAKING.jpg" alt="I"></a></p>
+<p>So in an act of love for WordPress I signed up to be the lead organizer for WordCamp St. Louis this year. Its been a lot of work but its also really exciting to work with the local community to put on a WordCamp. This year is looking to be a really good camp as its already sold out and we have a great list of national and local speakers.</p>
+<p>I attempted to give up my spot as a speaker so I could focus on organizing but ended up needing to cover a spot for a speaker that had to back out. <a href="http://2014.stlouis.wordcamp.org/session/adding-automation-to-your-theme-development-workflow/" target="_blank" rel="external">I’ll be giving a chat</a> on automating your theme development workflow with tools like YeoPress and Grunt. I’m pretty excited despite all the pressure and hope to see tons of local users benefit from the camp like I have at previous ones.</p>
+<h3 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h3><p>So WordCamp St. Louis in my humble first time organizer opinion was a huge success and our local community really did a fantastic job. The speakers were awesome, the sponsors were super generous with swag and support, and despite the weather closing the day down a bit early I think everyone had a pretty good time, learned a lot and enjoyed themselves.</p>
+<p>I thought my rushed chat came out pretty well even though I rushed a bit and forgot a few things because I was nervous. This year I decided to keep the <a href="https://speakerdeck.com/ollo/wordcamp-st-louis-2014" target="_blank" rel="external">slides</a> lighter and styled but use more interactive sections to demo the tools and I really enjoyed the flow much better than previous chats I’ve done.</p>
+<p><strong>Pro tip:</strong> Definitely throw in gifs and funny pictures.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/me/" class="tag tag-1">me</a>
+    
+      <a href="/tags/WordPress/" class="tag tag-2">WordPress</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/getting-into-rems-for-responsive-typography/">Getting into rem's for responsive typography</a></h3>
+    <p class="light post_date">Jan 10, 2014</p>
+  </header>
+
+  <div class="post_content">
+    <p>So for the past few months I have been using Sass for all of my projects.  I’ve been using Bourbon and Bourbon Neat as part of my workflow but recently have been working to implement rem measurements for my typography to assist in font scaling for responsive builds. This was a bit daunting at first after I read about the calculation for <a href="http://gregrickaby.com/using-the-golden-ratio-and-rems/" target="_blank" rel="external">rems</a> as I was already used to being spoiled by Bourbon’s <code>em()</code> function so I whipped up a function to do the conversion for me.</p>
+<pre><code>// calculate rem based on a pixel value
+@function rem($value, $fontbase: 10) {
+  @return($value / $fontbase) * 1.0rem;
+}
+
+.rem_test {
+  font-size: rem(40); // 40px == 4rem
+}
+</code></pre><p>Hope you find this helpful.  </p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/css/" class="tag tag-1">css</a>
+    
+      <a href="/tags/web-development/" class="tag tag-2">web development</a>
+    
+      <a href="/tags/sass/" class="tag tag-3">sass</a>
+    
+    </div>
+  
+
+</article>
+
+    
+      
+      <article class="post">
+
+  <header class="post_meta">
+    <h3 class="post_title"><a href="/five-years-ago/">Five years ago</a></h3>
+    <p class="light post_date">Sep 15, 2013</p>
+  </header>
+
+  <div class="post_content">
+    <p>So yesterday was my 32nd birthday. Woot! This morning over coffee while slowly working my way through a tech book { javascript the good parts } I started thinking about where I was five years ago as a developer.</p>
+<p>Five years ago I was writing css from scratch in a primarily Windows environment. And doing web hosting support for Yahoo!. It was an interesting way to cut my teeth and a lot of it was mind numbingly boring but I did get to learn some of the core concepts of web development from supporting their key services. I learned how to debug front end and backend code and the basics of a LAMP environment. I learned to use tools like firebug and photoshop. I took classes at the community college and online on javascript, php, and mark up languages. To think how my own development tools and skills as well as those in the industry have changed so rapidly in this timespan is just mind boggling.</p>
+<p>Now I haven’t used a Windows computer as my primary machine in 4 years. I finally am gaining a real understanding of the value of semantic minimal markup and working with the DOM properly. I’m writing true classes and object oriented stylesheets with sass <a href="http://bourbon.io" target="_blank" rel="external">Bourbon</a> <a href="http://neat.bourbon.io" target="_blank" rel="external">Bourbon Neat</a>. I’ve grown from supporting WordPress 1.6 to building custom themes from scratch and writing plugins. I’ve taken a deep dive into javascript and am trying to master it. I’ve automated and sped up my workflow by using better tools { <a href="http://www.sublimetext.com/" target="_blank" rel="external">sublime text</a> , <a href="http://www.iterm2.com/#/section/home" target="_blank" rel="external">iterm</a>, node applications <a href="http://yeoman.io/" target="_blank" rel="external">yeoman</a> ,<a href="http://gruntjs.com/" target="_blank" rel="external">grunt</a>, version control <a href="http://git-scm.org" target="_blank" rel="external">git</a>, and shell customizations .</p>
+<p>It’s a fast moving environment and new technologies are coming out daily. Sometimes I worry about the direction some of them are going and the impact it may have on society and our culture. Not that I don’t respect the innovation of these technologies, but the levels of integration seem to be moving in a directions that are a bit too far for me { glass }.</p>
+<p>The available information through different devices and platforms at this point on the web is insane. Through the past five years I’ve spent almost obsessively countless hours at this point on online as well as studying and researching, connecting socially with friends and family, building sites professionally etc.</p>
+<p>The worry I do have in the back of my head going forward is will we eventually be too connected? I’m not thinking of shutting down all my accounts and getting an old Nokia phone but as I’m getting older and thinking about having a family, I’m working on having hobbies that counter my digital lifestyle and are more active because I want to keep in touch with the human aspect of life as well. Its not something I really got in my mid-twenties.</p>
+<p>Maintain a steady balance with Work and Life, master specific skills instead of being a jack of all trades, give back to the open source communities and developers building the tools that help me succeed. Thats the goal for the next five.</p>
+
+  </div>
+
+  
+    <div class="post_tags">
+    <p><strong>tagged:</strong></p>
+    
+      <a href="/tags/me/" class="tag tag-1">me</a>
+    
+    </div>
+  
+
+</article>
+
+    
+
+    <nav class="pagination">
+  
+  
+    <a href="/archives/page/2/" class="pagination_next">next</a>
+  
+</nav>
+
+  </section>
+
+  </main>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-6384815-4', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>
